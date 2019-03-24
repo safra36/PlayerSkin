@@ -1,7 +1,7 @@
-# PlayerSkin With Flag And SQL Support
+### PlayerSkin With Flag And SQL Support
 
 
-# Description
+## Description
 A simple plugin to manage player models with their arms mostly grown on random player's ideas and people who construbuted on creating it on allied modders forum.
 You can hhave these features when using this plugin:
 - Per map skin configurations
@@ -13,7 +13,7 @@ You can hhave these features when using this plugin:
 
 LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
 
-# ConVars
+## ConVars
 
 - sm_pskin_enable 1 --- Enable/Disable command !pskin in chat (useful if you only want to use automatic admin skin set feature).
 - sm_cat_enable 0 --- Enable/Disable categorie support via categories.ini file (see the configuration if your going to use this).
@@ -22,3 +22,7 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
 - sm_hide_teams 0 --- hide opposit team's skins to be shown in user menu.
 - sm_mapskins_enable 1 --- let you choose whether you want map skins to be applied or not.
 - sm_round_timeout 20.0 --0 restrict usage of !pskin after a time after round start (disable it by setting it to 0.0)
+
+## Configurations
+
+# Configuring database
