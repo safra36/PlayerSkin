@@ -27,6 +27,7 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
 ### Configuring database
 
 - In order to use the plugin's database, you must add an entry for plugin's database in database.cfg like this:
+
 ```
 "Databases"
 {
