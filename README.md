@@ -1,5 +1,4 @@
-### PlayerSkin With Flag And SQL Support
-
+# PlayerSkin With Flag And SQL Support
 
 ## Description
 A simple plugin to manage player models with their arms mostly grown on random player's ideas and people who construbuted on creating it on allied modders forum.
@@ -25,4 +24,48 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
 
 ## Configurations
 
-# Configuring database
+### Configuring database
+
+- In order to use the plugin's database, you must add an entry for plugin's database in database.cfg like this:
+```
+"Databases"
+{
+    "driver_default"        "mysql"
+    
+    // When specifying "host", you may use an IP address, a hostname, or a socket file path
+    
+    "default"
+    {
+        "driver"            "default"
+        "host"                "localhost"
+        "database"            "sourcemod"
+        "user"                "root"
+        "pass"                ""
+        //"timeout"            "0"
+        //"port"            "0"
+    }
+    
+    "storage-local"
+    {
+        "driver"            "sqlite"
+        "database"            "sourcemod-local"
+    }
+
+    "PlayerSkins"
+    {
+        "driver"            "sqlite"
+        "database"            "PlayerSkins"
+    }
+
+    "clientprefs"
+    {
+        "driver"            "sqlite"
+        "host"                "localhost"
+        "database"            "clientprefs-sqlite"
+        "user"                "root"
+        "pass"                ""
+        //"timeout"            "0"
+        //"port"            "0"
+    }
+}
+```
