@@ -3,7 +3,7 @@
 #include <sourcemod>
 #include <sdktools>
 
-#define PLUGIN_VERSION "5.0.1 (Build 4)"
+#define PLUGIN_VERSION "5.0.2 (Build 6)"
 #define PLUGIN_AUTHOR "noBrain"
 #define MAX_SKIN_PATH 256
 
@@ -20,6 +20,10 @@ ConVar g_cHideMenu = null;
 ConVar g_cHideTeams = null;
 ConVar g_cMapSkins = null;
 ConVar g_cRoundStartTimeout = null;
+ConVar g_cCTDefaultSkin = null;
+ConVar g_cTDefualtSkin = null;
+ConVar g_cCTDefaultArms = null;
+ConVar g_cTDefualtArms = null;
 
 
 char defArms[][] = { "models/weapons/ct_arms.mdl", "models/weapons/t_arms.mdl" };
@@ -54,6 +58,10 @@ public void OnPluginStart()
 	g_cHideTeams = CreateConVar("sm_hide_teams", "0", "Hide menu options for opposite team");
 	g_cMapSkins = CreateConVar("sm_mapskins_enable", "1", "Enable/Disable per map skin system");
 	g_cRoundStartTimeout = CreateConVar("sm_round_timeout", "20.0", "Set this to add a timeout for users to be able to use skins before that time.");
+	g_cCTDefaultSkin = CreateConVar("sm_ct_skin", "", "Set a default skin for ct incase you don't want to use admin_skins.ini");
+	g_cTDefualtSkin = CreateConVar("sm_t_skin", "", "Set a default skin for t incase you don't want to use admin_skins.ini");
+	g_cCTDefaultArms = CreateConVar("sm_ct_arm", "", "Set a default skin for ct incase you don't want to use admin_skins.ini");
+	g_cTDefualtArms = CreateConVar("sm_t_arm", "", "Set a default skin for t incase you don't want to use admin_skins.ini");
 	
 	//Delay loading database.
 	
@@ -146,14 +154,30 @@ public Action PlayerSpawn(Event event, const char[] name, bool dontBroadcast)
 		{
 			PrintToChat(client, " \x10[PlayerSkin] \x01%T", "ApplyMapSkins", client);
 		}
+		else if(SetAdminSkins(client))
+		{
+			PrintToChat(client, " \x10[PlayerSkin] \x01%T", "ApplyDefSkins", client);
+		}
+		else if(SetConVarSkins(client))
+		{
+			PrintToChat(client, " \x10[PlayerSkin] \x01%T", "ApplyDefSkins", client);
+		}
 		else
 		{
-			SetAdminSkins(client);
+			PrintToChat(client, " \x10[PlayerSkin] \x01%T", "NoSkinHasBeenSet", client);
 		}
+	}
+	else if(SetAdminSkins(client))
+	{
+		PrintToChat(client, " \x10[PlayerSkin] \x01%T", "ApplyConVarSkins", client);
+	}
+	else if(SetConVarSkins(client))
+	{
+		PrintToChat(client, " \x10[PlayerSkin] \x01%T", "ApplyConVarSkins", client);
 	}
 	else
 	{
-		SetAdminSkins(client);
+		PrintToChat(client, " \x10[PlayerSkin] \x01%T", "NoSkinHasBeenSet", client);
 	}
 	return;
 
@@ -207,7 +231,48 @@ stock bool SetModels(int client, char[] model, char[] arms)
 	}
 }
 
-stock void SetAdminSkins(int client)
+stock bool SetConVarSkins(int client)
+{
+	char i_iSkinCT[256], i_iSkinT[256], i_iArmsT[256], i_iArmsCT[256];
+
+	GetConVarString(g_cCTDefaultSkin, i_iSkinCT, sizeof(i_iSkinCT));
+	GetConVarString(g_cTDefaultSkin, i_iSkinT, sizeof(i_iSkinT));
+	GetConVarString(g_cTDefualtArms, i_iArmsT, sizeof(i_iArmsT));
+	GetConVarString(g_cCTDefualtArms, i_iArmsCT, sizeof(i_iArmsCT));
+
+	int i_iClTeam = GetClientTeam(client);
+
+	if(i_ClTeam == 2)
+	{
+		if(!StrEqual(i_iSkinT, "", false))
+		{
+			// Set client's skin based on the cvar
+			SetModels(client, i_iSkinT, i_iArmsT);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else if(i_ClTeam == 3)
+	{
+
+		if(!StrEqual(i_iSkinCT, "", false))
+		{
+			// Set client's skin based on the cvar
+			SetModels(client, i_iSkinCT, i_iArmsCT);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	return false;
+}
+
+stock bool SetAdminSkins(int client)
 {
 	if(IsUserAdmin(client))
 	{
@@ -236,6 +301,8 @@ stock void SetAdminSkins(int client)
 				KvGetString(kv, "SkinT", SkinPathT, sizeof(SkinPathT));
 				KvGetString(kv, "ArmsT", ArmsPathT, sizeof(ArmsPathT));
 				SetModels(client, SkinPathT, ArmsPathT);
+				CloseHandle(kv);
+				return true;
 			}
 			else if(ClientTeam == 3)
 			{
@@ -243,9 +310,12 @@ stock void SetAdminSkins(int client)
 				KvGetString(kv, "SkinCT", SkinPathCT, sizeof(SkinPathCT));
 				KvGetString(kv, "ArmsCT", ArmsPathCT, sizeof(ArmsPathCT));
 				SetModels(client, SkinPathCT, ArmsPathCT);
+				CloseHandle(kv);
+				return true;
 			}
 		}
 		CloseHandle(kv);
+		return false;
 	}
 	else if(!IsUserAdmin(client))
 	{
@@ -260,6 +330,8 @@ stock void SetAdminSkins(int client)
 				KvGetString(kv, "SkinT", SkinPathT, sizeof(SkinPathT));
 				KvGetString(kv, "ArmsT", ArmsPathT, sizeof(ArmsPathT));
 				SetModels(client, SkinPathT, ArmsPathT);
+				CloseHandle(kv);
+				return true;
 			}
 			else if(ClientTeam == 3)
 			{
@@ -267,10 +339,14 @@ stock void SetAdminSkins(int client)
 				KvGetString(kv, "SkinCT", SkinPathCT, sizeof(SkinPathCT));
 				KvGetString(kv, "ArmsCT", ArmsPathCT, sizeof(ArmsPathCT));
 				SetModels(client, SkinPathCT, ArmsPathCT);
+				CloseHandle(kv);
+				return true;
 			}
 		}
 		CloseHandle(kv);
+		return false;
 	}
+	return false;
 }
 
 public Action Command_PlayerSkin(int client, int args) 

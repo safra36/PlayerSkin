@@ -77,4 +77,12 @@
 	{
 		"en"		"Invalid skin detected, cannot set the selected skin."
 	}
+	"ApplyDefSkins"
+	{
+		"en"		"You have gained your default skins."
+	}
+	"NoSkinHasBeenSet"
+	{
+		"en"		"No skins has been set on you."
+	}
 }
