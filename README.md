@@ -20,7 +20,7 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
 - sm_hide_options 0 --- hide menu options that people does not have permissions to use.
 - sm_hide_teams 0 --- hide opposit team's skins to be shown in user menu.
 - sm_mapskins_enable 1 --- let you choose whether you want map skins to be applied or not.
-- sm_round_timeout 20.0 --0 restrict usage of !pskin after a time after round start (disable it by setting it to 0.0)
+- sm_round_timeout 20.0 -- restrict usage of !pskin after a time after round start (disable it by setting it to 0.0)
 
 ## Configurations
 
@@ -118,4 +118,40 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
         "ArmsCT"    "models/player/custom_player/kuristaja/ak/batman/batman_arms.mdl"
     }
  } 
+```
+
+### Configuring categories.ini
+
+- With this file you can setup categories and use them after turning on the related cvar
+```
+"Categories" {
+    "EXAMPLE_CATEGORY"
+    {
+        "Name"        "MENU SHOWING NAME"
+        "Flag"        "FLAGS THAT WILL BE CHECKED AND ADDED TO THE MENU"
+        "u_id"        "Menu Unique ID"
+    "catgroup"    "cat_ID"
+    }
+    "Admins"
+    {
+        "Name"        "Admins"
+        "Flag"        "z"
+        "u_id"        "menu_admin"
+        "catgroup"    "cat_admin"
+    }
+    "Vips"
+    {
+        "Name"        "Vips"
+        "Flag"        "r"
+        "u_id"        "menu_vip"
+        "catgroup"    "cat_vip"
+    }
+    "Users"
+    {
+        "Name"        "Users"
+        "Flag"        ""
+        "u_id"        "menu_users"
+        "catgroup"    "cat_normal"
+    }
+ }  
 ```
