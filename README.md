@@ -91,7 +91,7 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
 
 ### Configuring admin_skins.ini
 
--This file is used to setup an automated skin system to change user's skins.
+- This file is used to setup an automated skin system to change user's skins.
 ```
 "Admin_Skins" {
     "USER_FLAGS_CHAR"
