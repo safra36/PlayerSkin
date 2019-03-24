@@ -190,7 +190,7 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
  }  
 ```
 
-### Cinfiguring Skin per map
+### Configuring Skin per map
 
 - This will be used to setup per map skins (Does not support prefix)
 ```
