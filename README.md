@@ -52,11 +52,11 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
         "database"            "sourcemod-local"
     }
 
-    "PlayerSkins"
+    **"PlayerSkins"
     {
         "driver"            "sqlite"
         "database"            "PlayerSkins"
-    }
+    }**
 
     "clientprefs"
     {
