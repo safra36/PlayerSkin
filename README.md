@@ -88,3 +88,34 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
     }
  } 
 ```
+
+### Configuring admin_skins.ini
+
+-This file is used to setup an automated skin system to change user's skins.
+```
+"Admin_Skins" {
+    "USER_FLAGS_CHAR"
+    {
+        //You can leave it empty if there is no default skin for the team on the current flag.
+        "SkinT"        "DEFAULT TERROR MODEL PATH FOR THE FLAG"
+        "ArmsT"        "DEFAULT TERROR ARM PATH FOR THE FLAG"
+        "SkinCT"    "DEFAULT COUNTER-TERROR MODEL PATH FOR THE FLAG"
+        "ArmsCT"    "DEFAULT COUNTER-TERROR ARM PATH FOR THE FLAG"
+    }
+    //It's a pre-defined config key that will be used for non-admin users.
+    "def"
+    {
+        "SkinT"        "Default skin for non-admin users (T)"
+        "ArmsT"        "Default arms for non-admin users (T)"
+        "SkinCT"    "Default skin for non-admin users (CT)"
+        "ArmsCT"    "Default arms for non-admin users (CT)"
+    }
+    "z"
+    {
+        "SkinT"        "models/player/custom_player/kuristaja/deadpool/deadpool.mdl"
+        "ArmsT"        "models/player/custom_player/kuristaja/deadpool/deadpool_arms.mdl"
+        "SkinCT"    "models/player/custom_player/kuristaja/ak/batman/batmanv2.mdl"
+        "ArmsCT"    "models/player/custom_player/kuristaja/ak/batman/batman_arms.mdl"
+    }
+ } 
+```
