@@ -21,6 +21,10 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
 - sm_hide_teams 0 --- hide opposit team's skins to be shown in user menu.
 - sm_mapskins_enable 1 --- let you choose whether you want map skins to be applied or not.
 - sm_round_timeout 20.0 -- restrict usage of !pskin after a time after round start (disable it by setting it to 0.0)
+- sm_ct_skin "" --- Add a default skin for CT
+- sm_t_skin "" ---  Add a default skin for T
+- sm_ct_arm "" --- Add a default arm for CT
+- sm_t_arm "" --- Add a default arm for T
 
 ## Configurations
 
