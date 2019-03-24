@@ -155,3 +155,71 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
     }
  }  
 ```
+
+### Configuring skin per steamid
+
+- Uses steamid64 to setup skins for a particular steamid
+```
+"userids" {
+    "SteamId_64"
+    {
+        "CT" //Team Number = 3 (for use in other modes and not csgo)
+        {
+            "Skin"    "Model Path"
+            "Arms"    "Arms Path"
+        }
+        "T" //Team Number = 3 (for use in other modes and not csgo)
+        {
+            "Skin"    "Model Path"
+            "Arms"    "Arms Path"
+        }
+    }
+    "76561198123013657"
+    {
+        "CT"
+        {
+            "Skin"    "models/player/custom_player/caleon1/harleyquinn/harleyquinn.mdl"
+            "Arms"    "models/player/custom_player/caleon1/harleyquinn/harleyquinn_arms.mdl"
+        }
+        "T"
+        {
+            "Skin"    "models/player/custom_player/kuristaja/cso2/natalie_santagirl/natalie.mdl"
+            "Arms"    "models/player/custom_player/kuristaja/cso2/natalie_santagirl/natalie_arms.mdl"
+        }
+    }
+ }  
+```
+
+### Cinfiguring Skin per map
+
+- This will be used to setup per map skins (Does not support prefix)
+```
+"mapskins" {
+    "MAP_NAME"
+    {
+        "CT"
+        {
+            "Skin"        ""
+            "Arms"        ""
+        }
+        "T"
+        {
+            "Skin"        ""
+            "Arms"        ""
+        }
+    }
+        "de_dust2"
+    {
+        "CT"
+        {
+            "Skin"        "models/player/custom_player/kuristaja/cso2/gsg9/gsg9.mdl"
+            "Arms"        "models/player/custom_player/kuristaja/cso2/gsg9/gsg9_arms.mdl"
+        }
+        "T"
+        {
+            "Skin"        "models/player/custom_player/kuristaja/cso2/gsg9/gsg9.mdl"
+            "Arms"        "models/player/custom_player/kuristaja/cso2/gsg9/gsg9_arms.mdl"
+        }
+    }
+ } 
+```
