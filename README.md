@@ -52,11 +52,11 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
         "database"            "sourcemod-local"
     }
 
-    **"PlayerSkins"
+    "PlayerSkins"
     {
         "driver"            "sqlite"
         "database"            "PlayerSkins"
-    }**
+    }
 
     "clientprefs"
     {
@@ -69,4 +69,22 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
         //"port"            "0"
     }
 }
+```
+
+### Configuring skins.ini
+
+- This file is use by menu that plugin will show to users when they type the chat trigger "!skins" and is also used by category file:
+```
+"Skins" {
+    "santagirl" //This is the section name, and is not important it can be anything even same for every skin.
+    {
+        "Name"        "Santa Girl [T]" //This is the name that will be shown into the menu as the skin's identifier to the users.
+        "Skin"        "models/player/custom_player/kuristaja/cso2/natalie_santagirl/natalie.mdl" // The skin's Model path
+        "Arms"        "models/player/custom_player/kuristaja/cso2/natalie_santagirl/natalie_arms.mdl" //The skin's Arms path
+        "Team"        "2" //The team number which the skin is for (2 = Terror, 3= Counter , Leave it empty for both teams)
+        "Flag"          "z" //The admin flag which will be able to use this skin (Leave it empty to make it public)
+        "u_id"        "skin_santagirl" //The skin's unique id which must be unique per skin in the menu (this is used for the menu to detect which skin the user has chosen)
+        "catgroup"    "cat_female" //This is the cat id that will help catergoties to detect that this is for blabla category
+    }
+ } 
 ```
