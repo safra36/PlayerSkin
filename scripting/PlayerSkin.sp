@@ -3,7 +3,7 @@
 #include <sourcemod>
 #include <sdktools>
 
-#define PLUGIN_VERSION "5.0.2 (Build 6)"
+#define PLUGIN_VERSION "5.0.2 (Build 7)"
 #define PLUGIN_AUTHOR "noBrain"
 #define MAX_SKIN_PATH 256
 
@@ -236,13 +236,13 @@ stock bool SetConVarSkins(int client)
 	char i_iSkinCT[256], i_iSkinT[256], i_iArmsT[256], i_iArmsCT[256];
 
 	GetConVarString(g_cCTDefaultSkin, i_iSkinCT, sizeof(i_iSkinCT));
-	GetConVarString(g_cTDefaultSkin, i_iSkinT, sizeof(i_iSkinT));
+	GetConVarString(g_cTDefualtSkin, i_iSkinT, sizeof(i_iSkinT));
 	GetConVarString(g_cTDefualtArms, i_iArmsT, sizeof(i_iArmsT));
-	GetConVarString(g_cCTDefualtArms, i_iArmsCT, sizeof(i_iArmsCT));
+	GetConVarString(g_cCTDefaultArms, i_iArmsCT, sizeof(i_iArmsCT));
 
 	int i_iClTeam = GetClientTeam(client);
 
-	if(i_ClTeam == 2)
+	if(i_iClTeam == 2)
 	{
 		if(!StrEqual(i_iSkinT, "", false))
 		{
@@ -255,7 +255,7 @@ stock bool SetConVarSkins(int client)
 			return false;
 		}
 	}
-	else if(i_ClTeam == 3)
+	else if(i_iClTeam == 3)
 	{
 
 		if(!StrEqual(i_iSkinCT, "", false))
