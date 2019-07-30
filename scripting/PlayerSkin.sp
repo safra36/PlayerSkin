@@ -3,7 +3,7 @@
 #include <sourcemod>
 #include <sdktools>
 
-#define PLUGIN_VERSION "5.0.2 (Build 7)"
+#define PLUGIN_VERSION "5.0.2 (Build 8)"
 #define PLUGIN_AUTHOR "noBrain"
 #define MAX_SKIN_PATH 256
 
@@ -101,7 +101,16 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 	if(GetConVarFloat(g_cRoundStartTimeout) != 0.0)
 	{
 		//Allow users to use skin menu for this period of time.
-		g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
+		if(g_hTimerRoundChecker != null)
+		{
+			KillTimer(g_hTimerRoundChecker);
+			g_hTimerRoundChecker = null;
+			g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
+		}
+		else
+		{
+			g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
+		}
 		PrintToChatAll(" \x10[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
 	}
 	
@@ -773,8 +782,15 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 		}
 		case MenuAction_End: {
 
-			CloseHandle(kv);
-			CloseHandle(menu);
+			if(kv != INVALID_HANDLE)
+			{
+				CloseHandle(kv);
+			}
+			
+			if(menu != INVALID_HANDLE)
+			{
+				CloseHandle(menu);
+			}
 		}
 	}
 }
