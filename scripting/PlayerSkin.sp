@@ -3,7 +3,7 @@
 #include <sourcemod>
 #include <sdktools>
 
-#define PLUGIN_VERSION "5.0.2 (Build 15)"
+#define PLUGIN_VERSION "5.0.2 (Build 16)"
 #define PLUGIN_AUTHOR "noBrain"
 #define MAX_SKIN_PATH 256
 
@@ -87,6 +87,12 @@ public void OnMapStart()
 {
 	CreateDatabase();
 	PrecacheAllModels();
+
+	if(g_hTimerRoundChecker != null)
+	{
+		delete g_hTimerRoundChecker;
+		g_hTimerRoundChecker = null;
+	}
 }
 
 public Action RoundStart(Event event, const char[] name, bool dontBroadcast) 
