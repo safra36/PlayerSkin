@@ -3,7 +3,7 @@
 #include <sourcemod>
 #include <sdktools>
 
-#define PLUGIN_VERSION "5.0.2 (Build 8)"
+#define PLUGIN_VERSION "5.0.2 (Build 15)"
 #define PLUGIN_AUTHOR "noBrain"
 #define MAX_SKIN_PATH 256
 
@@ -94,25 +94,32 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 	//Check if the handle is null, if yes then kill the timer to avoid interrupts.
 	if(g_hTimerRoundChecker != null)
 	{
-		KillTimer(g_hTimerRoundChecker);
+		delete g_hTimerRoundChecker;
 		g_hTimerRoundChecker = null;
+
+		if(GetConVarFloat(g_cRoundStartTimeout) != 0.0)
+		{
+			//Allow users to use skin menu for this period of time.
+			if(g_hTimerRoundChecker == null)
+			{
+				g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
+			}
+			PrintToChatAll(" \x10[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
+		}
+	}
+	else
+	{
+		if(GetConVarFloat(g_cRoundStartTimeout) != 0.0)
+		{
+			//Allow users to use skin menu for this period of time.
+			if(g_hTimerRoundChecker == null)
+			{
+				g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
+			}
+			PrintToChatAll(" \x10[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
+		}
 	}
 	
-	if(GetConVarFloat(g_cRoundStartTimeout) != 0.0)
-	{
-		//Allow users to use skin menu for this period of time.
-		if(g_hTimerRoundChecker != null)
-		{
-			KillTimer(g_hTimerRoundChecker);
-			g_hTimerRoundChecker = null;
-			g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
-		}
-		else
-		{
-			g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
-		}
-		PrintToChatAll(" \x10[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
-	}
 	
 	g_bIsSkinChangeAllowed = true;
 }
@@ -782,14 +789,16 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 		}
 		case MenuAction_End: {
 
-			if(kv != INVALID_HANDLE)
+			if(kv != null)
 			{
 				CloseHandle(kv);
+				kv = null;
 			}
 			
-			if(menu != INVALID_HANDLE)
+			if(menu != null)
 			{
 				CloseHandle(menu);
+				menu = null;
 			}
 		}
 	}
