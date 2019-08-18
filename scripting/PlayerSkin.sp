@@ -98,6 +98,8 @@ public void OnMapStart()
 public Action RoundStart(Event event, const char[] name, bool dontBroadcast) 
 {
 	//Check if the handle is null, if yes then kill the timer to avoid interrupts.
+	g_bIsSkinChangeAllowed = true;
+	
 	if(g_hTimerRoundChecker != null)
 	{
 		delete g_hTimerRoundChecker;
@@ -126,8 +128,6 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 		}
 	}
 	
-	
-	g_bIsSkinChangeAllowed = true;
 }
 
 public Action Timer_HandleRoundTimeout(Handle timer)
