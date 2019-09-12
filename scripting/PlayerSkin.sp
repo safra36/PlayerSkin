@@ -102,7 +102,7 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 	
 	if(g_hTimerRoundChecker != null)
 	{
-		delete g_hTimerRoundChecker;
+		KillTimer(g_hTimerRoundChecker);
 		g_hTimerRoundChecker = null;
 
 		if(GetConVarFloat(g_cRoundStartTimeout) != 0.0)
