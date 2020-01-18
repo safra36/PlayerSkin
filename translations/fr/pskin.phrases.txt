@@ -1,0 +1,59 @@
+"Phrases"
+{
+	"SkinWait"
+	{
+		"fr"		"Vous attendez d'avoir vos skins pour le prochain round!"
+	}
+	"CommandDisabled"
+	{
+		"fr"		"La commande skins est desactivée par l'opérateur du serveur!"
+	}
+	"SavedSkinsRemoved"
+	{
+		"fr"		"Vos skins enregistrés ont été supprimés!"
+	}
+	"WrongTeam"
+	{
+		"fr"		"Le skin sélectionnée n'est pas pour votre équipe!"
+	}
+	"SelectedSkin"
+	{
+		"fr"		"Vous êtes maintenant {1}"
+	}
+	"NoPermissions"
+	{
+		"fr"		"Vous n'avez pas les permissions nécessaires pour utiliser ce skin!"
+	}
+	"ModelRefresh"
+	{
+		"fr"		"Votre skin a été rafraîchi!"
+	}
+	"HoldingBomb"
+	{
+		"fr"		"Vous tenez maintenant la bombe!"
+	}
+	"MSG_ASK"
+	{
+		"fr"		"Voulez-vous les bras pour ce skin?"
+	}
+	"MSG_YES"
+	{
+		"fr"		"Oui ,je veux"
+	}
+	"MSG_NO"
+	{
+		"fr"		"Non ,je ne veux pas"
+	}
+	"SavedSkinTeam2"
+	{
+		"fr"		"Votre skin pour Team2 a été enregistre."
+	}
+	"SavedSkinTeam3"
+	{
+		"fr"		"Votre skin pour Team3 a été enregistre."
+	}
+	"ReachedLimit"
+	{
+		"fr"		"Vous ne pouvez pas utiliser cette commande pour le moment!"
+	}
+}

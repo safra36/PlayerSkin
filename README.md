@@ -7,77 +7,41 @@ You can hhave these features when using this plugin:
 - User group skins
 - Categories for skin selection menu
 - Per player skin
-- SQLite + mySQL db skin storing
-- etc ...
+- SQLite + MySQL db skin storing
+- etc...
 
-LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
+Link on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
 
 ## ConVars
-
-- sm_pskin_enable 1 --- Enable/Disable command !pskin in chat (useful if you only want to use automatic admin skin set feature).
-- sm_cat_enable 0 --- Enable/Disable categorie support via categories.ini file (see the configuration if your going to use this).
-- sm_start_menu 0 --- Enable/Disable showing menu to players on round start.
-- sm_hide_options 0 --- hide menu options that people does not have permissions to use.
-- sm_hide_teams 0 --- hide opposit team's skins to be shown in user menu.
-- sm_mapskins_enable 1 --- let you choose whether you want map skins to be applied or not.
-- sm_round_timeout 20.0 -- restrict usage of !pskin after a time after round start (disable it by setting it to 0.0)
-- sm_ct_skin "" --- Add a default skin for CT
-- sm_t_skin "" ---  Add a default skin for T
-- sm_ct_arm "" --- Add a default arm for CT
-- sm_t_arm "" --- Add a default arm for T
+- `sm_pskin_enable 1` --- Enable/Disable command !pskin in chat ***(useful if you only want to use automatic admin skin set feature)***.
+- `sm_cat_enable 0` --- Enable/Disable categorie support via categories.ini file ***(see the configuration if your going to use this)***.
+- `sm_start_menu 0` --- Enable/Disable showing menu to players on round start.
+- `sm_hide_options 0` --- hide menu options that people does not have permissions to use.
+- `sm_hide_teams 0` --- hide opposit team's skins to be shown in user menu.
+- `sm_mapskins_enable 1` --- let you choose whether you want map skins to be applied or not.
+- `sm_round_timeout 20.0` -- restrict usage of !pskin after a time after round start ***(disable it by setting it to 0.0)***.
+- `sm_ct_skin ""` --- Add a default skin for CT.
+- `sm_t_skin ""` ---  Add a default skin for T.
+- `sm_ct_arm ""` --- Add a default arm for CT.
+- `sm_t_arm ""` --- Add a default arm for T.
 
 ## Configurations
 
-### Configuring database
-
-- In order to use the plugin's database, you must add an entry for plugin's database in database.cfg like this:
-
+### Configuring Database
+- In order to use the plugin's database, you must add an entry for plugin's database in `database.cfg` like this:
 ```
 "Databases"
 {
-    "driver_default"        "mysql"
-    
-    // When specifying "host", you may use an IP address, a hostname, or a socket file path
-    
-    "default"
-    {
-        "driver"            "default"
-        "host"                "localhost"
-        "database"            "sourcemod"
-        "user"                "root"
-        "pass"                ""
-        //"timeout"            "0"
-        //"port"            "0"
-    }
-    
-    "storage-local"
-    {
-        "driver"            "sqlite"
-        "database"            "sourcemod-local"
-    }
-
     "PlayerSkins"
     {
         "driver"            "sqlite"
         "database"            "PlayerSkins"
     }
-
-    "clientprefs"
-    {
-        "driver"            "sqlite"
-        "host"                "localhost"
-        "database"            "clientprefs-sqlite"
-        "user"                "root"
-        "pass"                ""
-        //"timeout"            "0"
-        //"port"            "0"
-    }
 }
 ```
 
-### Configuring skins.ini
-
-- This file is use by menu that plugin will show to users when they type the chat trigger "!skins" and is also used by category file:
+### Configuring `skins.ini`
+- This file is use by menu that plugin will show to users when they type the chat trigger `"!skins"` and is also used by category file:
 ```
 "Skins" {
     "santagirl" //This is the section name, and is not important it can be anything even same for every skin.
@@ -93,8 +57,7 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
  } 
 ```
 
-### Configuring admin_skins.ini
-
+### Configuring `admin_skins.ini`
 - This file is used to setup an automated skin system to change user's skins.
 ```
 "Admin_Skins" {
@@ -124,8 +87,7 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
  } 
 ```
 
-### Configuring categories.ini
-
+### Configuring `categories.ini`
 - With this file you can setup categories and use them after turning on the related cvar
 ```
 "Categories" {
@@ -160,8 +122,7 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
  }  
 ```
 
-### Configuring skin per steamid
-
+### Configuring Skin per SteamID
 - Uses steamid64 to setup skins for a particular steamid
 ```
 "userids" {
@@ -194,9 +155,8 @@ LINK on AlliedModders: https://forums.alliedmods.net/showthread.php?t=293846
  }  
 ```
 
-### Configuring Skin per map
-
-- This will be used to setup per map skins (Does not support prefix)
+### Configuring Skin per Map
+- This will be used to setup per map skins ***(Does not support prefix)***
 ```
 "mapskins" {
     "MAP_NAME"
