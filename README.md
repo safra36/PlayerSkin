@@ -28,7 +28,7 @@ You can hhave these features when using this plugin:
 ## Configurations
 
 ### Configuring Database
-- In order to use the plugin's database, you must add an entry for plugin's database in `database.cfg` like this:
+- In order to use the plugin's database, you must add an entry for plugin's database in `databases.cfg` like this:
 ```
 "Databases"
 {
