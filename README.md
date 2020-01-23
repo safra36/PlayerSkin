@@ -3,27 +3,27 @@
 ## Description
 A simple plugin to manage player models with their arms mostly grown on random player's ideas and people who construbuted on creating it on allied modders forum.
 You can hhave these features when using this plugin:
-- Per map skin configurations
-- User group skins
-- Categories for skin selection menu
-- Per player skin
-- SQLite + MySQL db skin storing
-- etc...
+- Per map skin configurations;
+- User group skins;
+- Categories for skin selection menu;
+- Per player skin;
+- SQLite + MySQL db skin storing;
+- etc;
 
 **Link on AlliedModders:** https://forums.alliedmods.net/showthread.php?t=293846
 
 ## ConVars
-- `sm_pskin_enable 1` --- Enable/Disable command `!pskin` in chat ***(useful if you only want to use automatic admin skin set feature)***.
-- `sm_cat_enable 0` --- Enable/Disable categorie support via categories.ini file ***(see the configuration if your going to use this)***.
-- `sm_start_menu 0` --- Enable/Disable showing menu to players on round start.
-- `sm_hide_options 0` --- hide menu options that people does not have permissions to use.
-- `sm_hide_teams 0` --- hide opposit team's skins to be shown in user menu.
-- `sm_mapskins_enable 1` --- let you choose whether you want map skins to be applied or not.
-- `sm_round_timeout 20.0` -- restrict usage of `!pskin` after a time after round start ***(disable it by setting it to 0.0)***.
-- `sm_ct_skin ""` --- Add a default skin for CT.
-- `sm_t_skin ""` ---  Add a default skin for T.
-- `sm_ct_arm ""` --- Add a default arm for CT.
-- `sm_t_arm ""` --- Add a default arm for T.
+- `sm_pskin_enable 1` - Enable/Disable command `!pskin` in chat. ***(Useful if you only want to use automatic admin skin set feature)***
+- `sm_cat_enable 0` - Enable/Disable categorie support via categories.ini file. ***(See the configuration if your going to use this)***
+- `sm_start_menu 0` - Enable/Disable showing menu to players on round start.
+- `sm_hide_options 0` - hide menu options that people does not have permissions to use.
+- `sm_hide_teams 0` - hide opposit team's skins to be shown in user menu.
+- `sm_mapskins_enable 1` - let you choose whether you want map skins to be applied or not.
+- `sm_round_timeout 20.0` - restrict usage of `!pskin` after a time after round start. ***(Disable it by setting it to 0.0)***
+- `sm_ct_skin ""` - Add a default skin for CT.
+- `sm_t_skin ""` -  Add a default skin for T.
+- `sm_ct_arm ""` - Add a default arm for CT.
+- `sm_t_arm ""` - Add a default arm for T.
 
 ## Configurations
 
@@ -33,10 +33,10 @@ You can hhave these features when using this plugin:
 "Databases"
 {
     "PlayerSkins"
-    {
-        "driver"            "sqlite"
-        "database"            "PlayerSkins"
-    }
+	{
+		"driver"		"sqlite"
+		"database"		"PlayerSkins"
+	}
 }
 ```
 
@@ -46,13 +46,13 @@ You can hhave these features when using this plugin:
 "Skins" {
     "santagirl" //This is the section name, and is not important it can be anything even same for every skin.
     {
-        "Name"        "Santa Girl [T]" //This is the name that will be shown into the menu as the skin's identifier to the users.
-        "Skin"        "models/player/custom_player/kuristaja/cso2/natalie_santagirl/natalie.mdl" // The skin's Model path
-        "Arms"        "models/player/custom_player/kuristaja/cso2/natalie_santagirl/natalie_arms.mdl" //The skin's Arms path
-        "Team"        "2" //The team number which the skin is for (2 = Terror, 3= Counter , Leave it empty for both teams)
-        "Flag"          "z" //The admin flag which will be able to use this skin (Leave it empty to make it public)
-        "u_id"        "skin_santagirl" //The skin's unique id which must be unique per skin in the menu (this is used for the menu to detect which skin the user has chosen)
-        "catgroup"    "cat_female" //This is the cat id that will help catergoties to detect that this is for blabla category
+        "Name"        	"Santa Girl [T]" 																	//This is the name that will be shown into the menu as the skin's identifier to the users.
+        "Skin"       	"models/player/custom_player/kuristaja/cso2/natalie_santagirl/natalie.mdl" 			// The skin's Model path
+        "Arms"       	"models/player/custom_player/kuristaja/cso2/natalie_santagirl/natalie_arms.mdl" 	//The skin's Arms path
+        "Team"        	"2" 																				//The team number which the skin is for (2 = Terror, 3= Counter , Leave it empty for both teams)
+        "Flag"			"z" 																				//The admin flag which will be able to use this skin (Leave it empty to make it public)
+        "u_id"       	"skin_santagirl" 																	//The skin's unique id which must be unique per skin in the menu (this is used for the menu to detect which skin the user has chosen)
+        "catgroup"    	"cat_female" 																		//This is the cat id that will help catergoties to detect that this is for blabla category
     }
  } 
 ```
@@ -64,23 +64,23 @@ You can hhave these features when using this plugin:
     "USER_FLAGS_CHAR"
     {
         //You can leave it empty if there is no default skin for the team on the current flag.
-        "SkinT"        "DEFAULT TERROR MODEL PATH FOR THE FLAG"
-        "ArmsT"        "DEFAULT TERROR ARM PATH FOR THE FLAG"
+        "SkinT" 	"DEFAULT TERROR MODEL PATH FOR THE FLAG"
+        "ArmsT" 	"DEFAULT TERROR ARM PATH FOR THE FLAG"
         "SkinCT"    "DEFAULT COUNTER-TERROR MODEL PATH FOR THE FLAG"
         "ArmsCT"    "DEFAULT COUNTER-TERROR ARM PATH FOR THE FLAG"
     }
     //It's a pre-defined config key that will be used for non-admin users.
     "def"
     {
-        "SkinT"        "Default skin for non-admin users (T)"
-        "ArmsT"        "Default arms for non-admin users (T)"
+        "SkinT" 	"Default skin for non-admin users (T)"
+        "ArmsT" 	"Default arms for non-admin users (T)"
         "SkinCT"    "Default skin for non-admin users (CT)"
         "ArmsCT"    "Default arms for non-admin users (CT)"
     }
     "z"
     {
-        "SkinT"        "models/player/custom_player/kuristaja/deadpool/deadpool.mdl"
-        "ArmsT"        "models/player/custom_player/kuristaja/deadpool/deadpool_arms.mdl"
+        "SkinT" 	"models/player/custom_player/kuristaja/deadpool/deadpool.mdl"
+        "ArmsT"  	"models/player/custom_player/kuristaja/deadpool/deadpool_arms.mdl"
         "SkinCT"    "models/player/custom_player/kuristaja/ak/batman/batmanv2.mdl"
         "ArmsCT"    "models/player/custom_player/kuristaja/ak/batman/batman_arms.mdl"
     }
@@ -96,7 +96,7 @@ You can hhave these features when using this plugin:
         "Name"        "MENU SHOWING NAME"
         "Flag"        "FLAGS THAT WILL BE CHECKED AND ADDED TO THE MENU"
         "u_id"        "Menu Unique ID"
-    "catgroup"    "cat_ID"
+		"catgroup"    "cat_ID"
     }
     "Admins"
     {
@@ -172,7 +172,7 @@ You can hhave these features when using this plugin:
             "Arms"        ""
         }
     }
-        "de_dust2"
+	"de_dust2"
     {
         "CT"
         {
