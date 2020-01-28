@@ -22,7 +22,7 @@
 	}
 	"SelectedSkin"
 	{
-		"pt"		"Você é agora {1}"
+		"pt"		"Você escolheu a skin {1}"
 	}
 	"NoPermissions"
 	{
