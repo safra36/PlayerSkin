@@ -1,0 +1,79 @@
+"Phrases"
+{
+	"SkinWait"
+	{
+		"pt"		"Você está esperando para ter suas skins na próxima rodada!"
+	}
+	"CommandDisabled"
+	{
+		"pt"		"O comando skin está desativado pelo operador do servidor!"
+	}
+	"SavedSkinsRemoved"
+	{
+		"pt"		"Suas skins salvas foram removidas!"
+	}
+	"SavedSkinsRemoveFail"
+	{
+		"pt"		"Sua skins salva não pode ser removidas."
+	}
+	"WrongTeam"
+	{
+		"pt"		"Esta skin selecionada não é para sua equipe!"
+	}
+	"SelectedSkin"
+	{
+		"pt"		"Você escolheu a skin {1}"
+	}
+	"NoPermissions"
+	{
+		"pt"		"Você não tem as permissões necessárias para usar esta skin!"
+	}
+	"ModelRefresh"
+	{
+		"pt"		"Sua skin foi atualizada!"
+	}
+	"HoldingBomb"
+	{
+		"pt"		"Agora você está segurando a bomba!"
+	}
+	"MSG_ASK"
+	{
+		"pt"		"Você quer os Arms desta skin?"
+	}
+	"MSG_YES"
+	{
+		"pt"		"Sim, eu quero"
+	}
+	"MSG_NO"
+	{
+		"pt"		"Não, eu não"
+	}
+	"SavedSkinTeam2"
+	{
+		"pt"		"Sua skin para o Team 2 foi salva."
+	}
+	"SavedSkinTeam3"
+	{
+		"pt"		"Sua skin para o Team 3 foi salva."
+	}
+	"ReachedLimit"
+	{
+		"pt"		"Você não pode mais mudar suas skins!"
+	}
+	"InvalidPathSkin"
+	{
+		"pt"		"Erro! SkinPath vazio na configuração, entre em contato com o gerente do servidor."
+	}
+	"HasChoosed"
+	{
+		"pt"		"Sua escolha de Arms foi aplicada."
+	}
+	"ApplyMapSkins"
+	{
+		"pt"		"As skins preferidas do mapa foram aplicadas a você."
+	}
+	"InvalidSkin"
+	{
+		"pt"		"Skin inválida detectada, não é possível definir a skin selecionada."
+	}
+}
