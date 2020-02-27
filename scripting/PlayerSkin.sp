@@ -3,7 +3,7 @@
 #include <sourcemod>
 #include <sdktools>
 
-#define PLUGIN_VERSION "5.0.2 (Build 16)"
+#define PLUGIN_VERSION "5.0.2 (Build 22)"
 #define PLUGIN_AUTHOR "noBrain"
 #define MAX_SKIN_PATH 256
 
@@ -57,7 +57,7 @@ public void OnPluginStart()
 	g_cHideMenu = CreateConVar("sm_hide_options", "0", "Hide menu options if the guy does not have access to the skin.");
 	g_cHideTeams = CreateConVar("sm_hide_teams", "0", "Hide menu options for opposite team");
 	g_cMapSkins = CreateConVar("sm_mapskins_enable", "1", "Enable/Disable per map skin system");
-	g_cRoundStartTimeout = CreateConVar("sm_round_timeout", "20.0", "Set this to add a timeout for users to be able to use skins before that time.");
+	g_cRoundStartTimeout = CreateConVar("sm_round_timeout", "0.0", "Set this to add a timeout for users to be able to use skins before that time.");
 	g_cCTDefaultSkin = CreateConVar("sm_ct_skin", "", "Set a default skin for ct incase you don't want to use admin_skins.ini");
 	g_cTDefualtSkin = CreateConVar("sm_t_skin", "", "Set a default skin for t incase you don't want to use admin_skins.ini");
 	g_cCTDefaultArms = CreateConVar("sm_ct_arm", "", "Set a default skin for ct incase you don't want to use admin_skins.ini");
@@ -102,7 +102,7 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 	
 	if(g_hTimerRoundChecker != null)
 	{
-		KillTimer(g_hTimerRoundChecker);
+		delete g_hTimerRoundChecker;
 		g_hTimerRoundChecker = null;
 
 		if(GetConVarFloat(g_cRoundStartTimeout) != 0.0)
@@ -488,8 +488,8 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 				}
 			}
 			while(KvGotoNextKey(kv, false));
-			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			SetMenuExitButton(menu, true);
+			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			CloseHandle(kv);
 		}
 		else if(GetConVarBool(g_cHideMenu) && !GetConVarBool(g_cHideTeams))
@@ -514,8 +514,8 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 				}
 			}
 			while(KvGotoNextKey(kv, false));
-			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			SetMenuExitButton(menu, true);
+			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			CloseHandle(kv);
 		}
 		else if(!GetConVarBool(g_cHideMenu) && GetConVarBool(g_cHideTeams))
@@ -545,8 +545,8 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 				}
 			}
 			while(KvGotoNextKey(kv, false));
-			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			SetMenuExitButton(menu, true);
+			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			CloseHandle(kv);
 		}
 		else if(!GetConVarBool(g_cHideMenu) && !GetConVarBool(g_cHideTeams))
@@ -565,8 +565,8 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 				AddMenuItem(menu, UniqueId, SkinName);
 			}
 			while(KvGotoNextKey(kv, false));
-			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			SetMenuExitButton(menu, true);
+			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			CloseHandle(kv);
 		}
 	}
@@ -696,73 +696,141 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 							PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "WrongTeam", param1);
 							return;
 						}
-					}
-					
-					
-					
-					KvGetString(kv, "Name", SkinName, sizeof(SkinName));
-					KvGetString(kv, "Skin", SkinPath, sizeof(SkinPath));
-					KvGetString(kv, "Arms", ArmPath, sizeof(ArmPath));
-					KvGetString(kv, "Flag", Flag, sizeof(Flag));
-					
-					if(StrEqual(Flag, "", false))
-					{
-						if(!IsModelPrecached(SkinPath))
-						{
-							PrecacheModel(SkinPath);
-						}
-						
-						if(!StrEqual(SkinPath, "", false))
-						{
-							SetEntityModel(param1, SkinPath);
-							
-							PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "SelectedSkin", param1, SkinName);
-							
-							if(!StrEqual(ArmPath, "", false))
-							{
-								SetEntPropString(param1, Prop_Send, "m_szArmsModel", ArmPath);
-								AddUserSkin(param1, SkinPath, ArmPath, GetClientTeam(param1));
-							}
-							else if(StrEqual(ArmPath, "", false)) 
-							{
-								if(GetClientTeam(param1) == 3)
-								{
-									SetEntPropString(param1, Prop_Send, "m_szArmsModel", defArms[0]);
-									AddUserSkin(param1, SkinPath, defArms[0], GetClientTeam(param1));
-								}
-								else if(GetClientTeam(param1) == 2)
-								{
-									SetEntPropString(param1, Prop_Send, "m_szArmsModel", defArms[1]);
-									AddUserSkin(param1, SkinPath, defArms[1], GetClientTeam(param1));
-								}
-							}
-						}
 						else
 						{
-							PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "InvalidSkin", param1);
+							KvGetString(kv, "Name", SkinName, sizeof(SkinName));
+							KvGetString(kv, "Skin", SkinPath, sizeof(SkinPath));
+							KvGetString(kv, "Arms", ArmPath, sizeof(ArmPath));
+							KvGetString(kv, "Flag", Flag, sizeof(Flag));
+							
+							if(StrEqual(Flag, "", false))
+							{
+								if(!IsModelPrecached(SkinPath))
+								{
+									PrecacheModel(SkinPath);
+								}
+								
+								if(!StrEqual(SkinPath, "", false))
+								{
+									SetEntityModel(param1, SkinPath);
+									
+									PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "SelectedSkin", param1, SkinName);
+									
+									if(!StrEqual(ArmPath, "", false))
+									{
+										SetEntPropString(param1, Prop_Send, "m_szArmsModel", ArmPath);
+										AddUserSkin(param1, SkinPath, ArmPath, GetClientTeam(param1));
+									}
+									else if(StrEqual(ArmPath, "", false)) 
+									{
+										if(GetClientTeam(param1) == 3)
+										{
+											SetEntPropString(param1, Prop_Send, "m_szArmsModel", defArms[0]);
+											AddUserSkin(param1, SkinPath, defArms[0], GetClientTeam(param1));
+										}
+										else if(GetClientTeam(param1) == 2)
+										{
+											SetEntPropString(param1, Prop_Send, "m_szArmsModel", defArms[1]);
+											AddUserSkin(param1, SkinPath, defArms[1], GetClientTeam(param1));
+										}
+									}
+								}
+								else
+								{
+									PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "InvalidSkin", param1);
+								}
+							}
+							else if(!StrEqual(Flag, "", false))
+							{
+								int UserFlag = GetUserAcsessValue(Flag);
+								if(CheckCommandAccess(param1, "command_PlayerVIP", UserFlag))
+								{
+									if(!IsModelPrecached(SkinPath))
+									{
+										PrecacheModel(SkinPath);
+									}
+									
+									PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "SelectedSkin", param1, SkinName);
+									
+									if(!StrEqual(SkinPath, "", false))
+									{
+										SetEntityModel(param1, SkinPath);
+										
+										
+										if(!StrEqual(ArmPath, "", false))
+										{
+											SetEntPropString(param1, Prop_Send, "m_szArmsModel", ArmPath);
+											AddUserSkin(param1, SkinPath, ArmPath, GetClientTeam(param1));
+										}
+										else if(StrEqual(ArmPath, "", false)) 
+										{
+											if(GetClientTeam(param1) == 3)
+											{
+												SetEntPropString(param1, Prop_Send, "m_szArmsModel", defArms[0]);
+												AddUserSkin(param1, SkinPath, defArms[0], GetClientTeam(param1));
+											}
+											else if(GetClientTeam(param1) == 2)
+											{
+												SetEntPropString(param1, Prop_Send, "m_szArmsModel", defArms[1]);
+												AddUserSkin(param1, SkinPath, defArms[1], GetClientTeam(param1));
+											}
+										}
+									}
+								}
+								else if(!CheckCommandAccess(param1, "command_PlayerVIP", UserFlag))
+								{
+									PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "NoPermissions", param1);
+									return;
+								}
+							}
 						}
 					}
-					else if(!StrEqual(Flag, "", false))
+					else
 					{
-						int UserFlag = GetUserAcsessValue(Flag);
-						if(CheckCommandAccess(param1, "command_PlayerVIP", UserFlag))
+						PrintToServer("No Team On Skin");
+						KvGetString(kv, "Name", SkinName, sizeof(SkinName));
+						KvGetString(kv, "Skin", SkinPath, sizeof(SkinPath));
+						KvGetString(kv, "Arms", ArmPath, sizeof(ArmPath));
+						KvGetString(kv, "Flag", Flag, sizeof(Flag));
+						
+						if(StrEqual(Flag, "", false))
 						{
+							PrintToServer("No Flag On Skin");
 							if(!IsModelPrecached(SkinPath))
 							{
 								PrecacheModel(SkinPath);
 							}
 							
-							PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "SelectedSkin", param1, SkinName);
-							
 							if(!StrEqual(SkinPath, "", false))
 							{
 								SetEntityModel(param1, SkinPath);
 								
+								PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "SelectedSkin", param1, SkinName);
 								
 								if(!StrEqual(ArmPath, "", false))
 								{
-									SetEntPropString(param1, Prop_Send, "m_szArmsModel", ArmPath);
-									AddUserSkin(param1, SkinPath, ArmPath, GetClientTeam(param1));
+									
+
+									if(GetClientTeam(param1) == 3)
+									{
+										SetEntPropString(param1, Prop_Send, "m_szArmsModel", ArmPath);
+										AddUserSkin(param1, SkinPath, ArmPath, GetClientTeam(param1));
+
+										if(!IsUserWithSkinsOnTeam(param1, 2))
+										{
+											AddUserSkin(param1, SkinPath, ArmPath, 2);
+										}
+									}
+									else if(GetClientTeam(param1) == 2)
+									{
+										SetEntPropString(param1, Prop_Send, "m_szArmsModel", ArmPath);
+										AddUserSkin(param1, SkinPath, ArmPath, GetClientTeam(param1));
+
+										if(!IsUserWithSkinsOnTeam(param1, 3))
+										{
+											AddUserSkin(param1, SkinPath, ArmPath, 3);
+										}
+									}
 								}
 								else if(StrEqual(ArmPath, "", false)) 
 								{
@@ -770,21 +838,105 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 									{
 										SetEntPropString(param1, Prop_Send, "m_szArmsModel", defArms[0]);
 										AddUserSkin(param1, SkinPath, defArms[0], GetClientTeam(param1));
+
+										if(!IsUserWithSkinsOnTeam(param1, 2))
+										{
+											AddUserSkin(param1, SkinPath, defArms[0], 2);
+										}
+
 									}
 									else if(GetClientTeam(param1) == 2)
 									{
 										SetEntPropString(param1, Prop_Send, "m_szArmsModel", defArms[1]);
 										AddUserSkin(param1, SkinPath, defArms[1], GetClientTeam(param1));
+
+										if(!IsUserWithSkinsOnTeam(param1, 3))
+										{
+											AddUserSkin(param1, SkinPath, defArms[1], 3);
+										}
 									}
 								}
 							}
+							else
+							{
+								PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "InvalidSkin", param1);
+							}
 						}
-						else if(!CheckCommandAccess(param1, "command_PlayerVIP", UserFlag))
+						else if(!StrEqual(Flag, "", false))
 						{
-							PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "NoPermissions", param1);
-							return;
+							int UserFlag = GetUserAcsessValue(Flag);
+							if(CheckCommandAccess(param1, "command_PlayerVIP", UserFlag))
+							{
+								if(!IsModelPrecached(SkinPath))
+								{
+									PrecacheModel(SkinPath);
+								}
+								
+								PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "SelectedSkin", param1, SkinName);
+								
+								if(!StrEqual(SkinPath, "", false))
+								{
+									SetEntityModel(param1, SkinPath);
+									
+									
+									if(!StrEqual(ArmPath, "", false))
+									{
+										if(GetClientTeam(param1) == 3)
+										{
+											SetEntPropString(param1, Prop_Send, "m_szArmsModel", ArmPath);
+											AddUserSkin(param1, SkinPath, ArmPath, GetClientTeam(param1));
+
+											if(!IsUserWithSkinsOnTeam(param1, 2))
+											{
+												AddUserSkin(param1, SkinPath, ArmPath, 2);
+											}
+										}
+										else if(GetClientTeam(param1) == 2)
+										{
+											SetEntPropString(param1, Prop_Send, "m_szArmsModel", ArmPath);
+											AddUserSkin(param1, SkinPath, ArmPath, GetClientTeam(param1));
+
+											if(!IsUserWithSkinsOnTeam(param1, 3))
+											{
+												AddUserSkin(param1, SkinPath, ArmPath, 3);
+											}
+										}
+										
+									}
+									else if(StrEqual(ArmPath, "", false)) 
+									{
+										if(GetClientTeam(param1) == 3)
+										{
+											SetEntPropString(param1, Prop_Send, "m_szArmsModel", defArms[0]);
+											AddUserSkin(param1, SkinPath, defArms[0], GetClientTeam(param1));
+
+											if(!IsUserWithSkinsOnTeam(param1, 2))
+											{
+												AddUserSkin(param1, SkinPath, defArms[0], 2);
+											}
+										}
+										else if(GetClientTeam(param1) == 2)
+										{
+											SetEntPropString(param1, Prop_Send, "m_szArmsModel", defArms[1]);
+											AddUserSkin(param1, SkinPath, defArms[1], GetClientTeam(param1));
+
+											if(!IsUserWithSkinsOnTeam(param1, 3))
+											{
+												AddUserSkin(param1, SkinPath, defArms[1], 3);
+											}
+										}
+									}
+								}
+							}
+							else if(!CheckCommandAccess(param1, "command_PlayerVIP", UserFlag))
+							{
+								PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "NoPermissions", param1);
+								return;
+							}
 						}
 					}
+					
+					
 				} 
 				else 
 				{
@@ -1416,6 +1568,87 @@ stock bool IsUserWithSkins(int client)
 	char Query[128], SteamAuth[32], SkinsPath[MAX_SKIN_PATH], ArmsPath[MAX_SKIN_PATH];
 	GetClientAuthId(client, AuthId_Steam2, SteamAuth, sizeof(SteamAuth));
 	int team = GetClientTeam(client);
+	
+	// PrintToServer("#1");
+	
+	if(IsUserOnDatabase(client))
+	{
+		// PrintToServer("#2");
+		if(team == 2)
+		{
+			// PrintToServer("#3");
+			Format(Query, sizeof(Query), "SELECT t_skin, t_arm FROM userskins WHERE id = '%s'", SteamAuth);
+			
+			hQuery = SQL_Query(db, Query);
+			if (hQuery == null)
+			{
+				PrintToServer("[PlayerSkin] Could not execute the query.");
+				return false;
+			}
+			else
+			{
+				SQL_FetchString(hQuery, 0, SkinsPath, sizeof(SkinsPath));
+				SQL_FetchString(hQuery, 1, ArmsPath, sizeof(ArmsPath));
+				
+				// PrintToServer("IsUserWithSkins Has Passed Execution.");
+				// PrintToServer("UserSkin: %s", SkinsPath);
+				
+				if(!StrEqual(SkinsPath, "", false))
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+		else if(team == 3)
+		{
+			Format(Query, sizeof(Query), "SELECT ct_skin, ct_arm FROM userskins WHERE id = '%s'", SteamAuth);
+			
+			hQuery = SQL_Query(db, Query);
+			if (hQuery == null)
+			{
+				PrintToServer("[PlayerSkin] Could not execute the query.");
+				return false;
+			}
+			else
+			{
+				SQL_FetchString(hQuery, 0, SkinsPath, sizeof(SkinsPath));
+				SQL_FetchString(hQuery, 1, ArmsPath, sizeof(ArmsPath));
+				
+				// PrintToServer("IsUserWithSkins Has Passed Execution.");
+				// PrintToServer("UserSkin: %s", SkinsPath);
+				
+				if(!StrEqual(SkinsPath, "", false))
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
+
+stock bool IsUserWithSkinsOnTeam(int client, int team)
+{
+	DBResultSet hQuery = null;
+	char Query[128], SteamAuth[32], SkinsPath[MAX_SKIN_PATH], ArmsPath[MAX_SKIN_PATH];
+	GetClientAuthId(client, AuthId_Steam2, SteamAuth, sizeof(SteamAuth));
 	
 	// PrintToServer("#1");
 	
