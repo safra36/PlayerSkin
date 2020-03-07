@@ -14,22 +14,22 @@ You can hhave these features when using this plugin:
 **Link on AlliedModders:** https://forums.alliedmods.net/showthread.php?t=293846
 
 ## ConVars
-- `sm_pskin_enable 1` | Enable/Disable command `!pskin` in chat. ***(Useful if you only want to use automatic admin skin set feature)***
-- `sm_cat_enable 0` | Enable/Disable categorie support via categories.ini file. ***(See the configuration if your going to use this)***
-- `sm_start_menu 0` | Enable/Disable showing menu to players on round start.
-- `sm_hide_options 0` | hide menu options that people does not have permissions to use.
-- `sm_hide_teams 0` | hide opposit team's skins to be shown in user menu.
-- `sm_mapskins_enable 1` | let you choose whether you want map skins to be applied or not.
-- `sm_round_timeout 20.0` | restrict usage of `!pskin` after a time after round start. ***(Disable it by setting it to 0.0)***
-- `sm_ct_skin ""` | Add a default skin for CT.
-- `sm_t_skin ""` | Add a default skin for T.
-- `sm_ct_arm ""` | Add a default arm for CT.
-- `sm_t_arm ""` | Add a default arm for T.
+- `sm_pskin_enable 1` - Enable/Disable command `!pskin` in chat. ***(Useful if you only want to use automatic admin skin set feature)***
+- `sm_cat_enable 0` - Enable/Disable categorie support via categories.ini file. ***(See the configuration if your going to use this)***
+- `sm_start_menu 0` - Enable/Disable showing menu to players on round start.
+- `sm_hide_options 0` - hide menu options that people does not have permissions to use.
+- `sm_hide_teams 0` - hide opposit team's skins to be shown in user menu.
+- `sm_mapskins_enable 1` - let you choose whether you want map skins to be applied or not.
+- `sm_round_timeout 20.0` - restrict usage of `!pskin` after a time after round start. ***(Disable it by setting it to 0.0)***
+- `sm_ct_skin ""` - Add a default skin for CT.
+- `sm_t_skin ""` - Add a default skin for T.
+- `sm_ct_arm ""` - Add a default arm for CT.
+- `sm_t_arm ""` - Add a default arm for T.
 
 ## Commands
-- `sm_pskin` | Abre o menu de skins.
-- `sm_models` | Abre o menu de skins.
-- `sm_skins` | Abre o menu de skins.
+- `sm_pskin` - Abre o menu de skins.
+- `sm_models` - Abre o menu de skins.
+- `sm_skins` - Abre o menu de skins.
 
 ## Configurations
 ### Configuring Database
