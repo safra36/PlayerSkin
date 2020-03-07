@@ -22,7 +22,7 @@
 	}
 	"SelectedSkin"
 	{
-		"pt"		"Você escolheu a skin {1}"
+		"pt"		"Você escolheu a skin {1}."
 	}
 	"NoPermissions"
 	{
@@ -75,5 +75,13 @@
 	"InvalidSkin"
 	{
 		"pt"		"Skin inválida detectada, não é possível definir a skin selecionada."
+	}
+	"ApplyDefSkins"
+	{
+		"pt"		"Você ganhou suas skins padrão."
+	}
+	"NoSkinHasBeenSet"
+	{
+		"pt"		"Nenhuma skin foi definida para você."
 	}
 }

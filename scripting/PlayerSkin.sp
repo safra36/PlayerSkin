@@ -35,7 +35,7 @@ public Plugin myinfo =  {
 
 	name = "PlayerSkin",
 	author = PLUGIN_AUTHOR,
-	description = "Allow players to select their skins.",
+	description = "Allow players to select their skins",
 	version = PLUGIN_VERSION,
 
 };
@@ -66,11 +66,11 @@ public void OnPluginStart()
 	//Delay loading database.
 	
 	//Define Created Paths
-	BuildPath(Path_SM, g_szFileSkinPath, sizeof(g_szFileSkinPath), "configs/skin.ini");
-	BuildPath(Path_SM, g_szFileAutoSkinPath, sizeof(g_szFileAutoSkinPath), "configs/admin_skin.ini");
-	BuildPath(Path_SM, g_szFileCategoryPath, sizeof(g_szFileCategoryPath), "configs/categories.ini");
-	BuildPath(Path_SM, g_szFileUserSkinPath, sizeof(g_szFileUserSkinPath), "configs/user_skins.ini");
-	BuildPath(Path_SM, g_szFileMapSkins, sizeof(g_szFileMapSkins), "configs/mapskins.ini");
+	BuildPath(Path_SM, g_szFileSkinPath, sizeof(g_szFileSkinPath), "configs/playerskin/skin.ini");
+	BuildPath(Path_SM, g_szFileAutoSkinPath, sizeof(g_szFileAutoSkinPath), "configs/playerskin/admin_skin.ini");
+	BuildPath(Path_SM, g_szFileCategoryPath, sizeof(g_szFileCategoryPath), "configs/playerskin/categories.ini");
+	BuildPath(Path_SM, g_szFileUserSkinPath, sizeof(g_szFileUserSkinPath), "configs/playerskin/user_skins.ini");
+	BuildPath(Path_SM, g_szFileMapSkins, sizeof(g_szFileMapSkins), "configs/playerskin/mapskins.ini");
 	
 	//Auto-Create Configurations
 	AutoExecConfig(true, "configs.playerskin");

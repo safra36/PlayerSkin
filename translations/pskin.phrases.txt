@@ -23,7 +23,7 @@
 	"SelectedSkin"
 	{
 		"#format"	"{1:s}"
-		"en"		"You are now {1}"
+		"en"		"You are now {1}."
 	}
 	"NoPermissions"
 	{
