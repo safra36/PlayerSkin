@@ -3,7 +3,7 @@
 #include <sourcemod>
 #include <sdktools>
 
-#define PLUGIN_VERSION "5.0.2 (Build 22)"
+#define PLUGIN_VERSION "5.1.0 (Build 22)"
 #define PLUGIN_AUTHOR "noBrain"
 #define MAX_SKIN_PATH 256
 
@@ -28,7 +28,6 @@ ConVar g_cTDefualtArms = null;
 
 char defArms[][] = { "models/weapons/ct_arms.mdl", "models/weapons/t_arms.mdl" };
 char g_szFileSkinPath[PLATFORM_MAX_PATH], g_szFileAutoSkinPath[PLATFORM_MAX_PATH], g_szFileCategoryPath[PLATFORM_MAX_PATH], g_szFileUserSkinPath[PLATFORM_MAX_PATH], g_szFileMapSkins[PLATFORM_MAX_PATH];
-
 
 
 public Plugin myinfo =  {
@@ -63,14 +62,14 @@ public void OnPluginStart()
 	g_cCTDefaultArms = CreateConVar("sm_ct_arm", "", "Set a default skin for ct incase you don't want to use admin_skins.ini");
 	g_cTDefualtArms = CreateConVar("sm_t_arm", "", "Set a default skin for t incase you don't want to use admin_skins.ini");
 	
-	//Delay loading database.
+	//Delay loading database
 	
 	//Define Created Paths
-	BuildPath(Path_SM, g_szFileSkinPath, sizeof(g_szFileSkinPath), "configs/playerskin/skin.ini");
-	BuildPath(Path_SM, g_szFileAutoSkinPath, sizeof(g_szFileAutoSkinPath), "configs/playerskin/admin_skin.ini");
-	BuildPath(Path_SM, g_szFileCategoryPath, sizeof(g_szFileCategoryPath), "configs/playerskin/categories.ini");
-	BuildPath(Path_SM, g_szFileUserSkinPath, sizeof(g_szFileUserSkinPath), "configs/playerskin/user_skins.ini");
-	BuildPath(Path_SM, g_szFileMapSkins, sizeof(g_szFileMapSkins), "configs/playerskin/mapskins.ini");
+	BuildPath(Path_SM, g_szFileSkinPath, 		sizeof(g_szFileSkinPath), 		"configs/playerskin/ps_skins.ini");
+	BuildPath(Path_SM, g_szFileAutoSkinPath, 	sizeof(g_szFileAutoSkinPath), 	"configs/playerskin/ps_adminskins.ini");
+	BuildPath(Path_SM, g_szFileCategoryPath, 	sizeof(g_szFileCategoryPath), 	"configs/playerskin/ps_categories.ini");
+	BuildPath(Path_SM, g_szFileUserSkinPath, 	sizeof(g_szFileUserSkinPath), 	"configs/playerskin/ps_userskins.ini");
+	BuildPath(Path_SM, g_szFileMapSkins, 		sizeof(g_szFileMapSkins), 		"configs/playerskin/ps_mapskins.ini");
 	
 	//Auto-Create Configurations
 	AutoExecConfig(true, "configs.playerskin");
@@ -431,6 +430,7 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 			while(KvGotoNextKey(kt, false));
 			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			SetMenuExitButton(menu, true);
+			SetMenuExitBackButton(menu, true);
 			CloseHandle(kt);
 		}
 		else if(!GetConVarBool(g_cHideMenu))
@@ -450,6 +450,7 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 			while(KvGotoNextKey(kt, false));
 			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			SetMenuExitButton(menu, true);
+			SetMenuExitBackButton(menu, true);
 			CloseHandle(kt);
 		}
 	}
@@ -489,6 +490,7 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 			}
 			while(KvGotoNextKey(kv, false));
 			SetMenuExitButton(menu, true);
+			SetMenuExitBackButton(menu, true);
 			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			CloseHandle(kv);
 		}
@@ -515,6 +517,7 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 			}
 			while(KvGotoNextKey(kv, false));
 			SetMenuExitButton(menu, true);
+			SetMenuExitBackButton(menu, true);
 			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			CloseHandle(kv);
 		}
@@ -546,6 +549,7 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 			}
 			while(KvGotoNextKey(kv, false));
 			SetMenuExitButton(menu, true);
+			SetMenuExitBackButton(menu, true);
 			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			CloseHandle(kv);
 		}
@@ -566,6 +570,7 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 			}
 			while(KvGotoNextKey(kv, false));
 			SetMenuExitButton(menu, true);
+			SetMenuExitBackButton(menu, true);
 			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			CloseHandle(kv);
 		}
@@ -628,6 +633,7 @@ public int SkinMenuHandle(Handle menu, MenuAction action, int param1, int param2
 					while(KvGotoNextKey(kt, false));
 					DisplayMenu(smenu, param1, MENU_TIME_FOREVER);
 					SetMenuExitButton(smenu, true);
+					SetMenuExitBackButton(menu, true);
 					CloseHandle(kt);
 					CloseHandle(kv);
 				}
