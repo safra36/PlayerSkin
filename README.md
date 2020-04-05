@@ -1,6 +1,6 @@
 # PlayerSkin (Flag & SQL/MySQL Support)
 
-## Description
+### Description
 A simple plugin to manage player models with their arms mostly grown on random player's ideas and people who construbuted on creating it on allied modders forum.
 You can hhave these features when using this plugin:
 - Per map skin configurations;
@@ -13,25 +13,24 @@ You can hhave these features when using this plugin:
 
 **Link on AlliedModders:** https://forums.alliedmods.net/showthread.php?t=293846
 
-## ConVars
-- `sm_pskin_enable 1` - Enable/Disable command `!pskin` in chat. ***(Useful if you only want to use automatic admin skin set feature)***
-- `sm_cat_enable 0` - Enable/Disable categorie support via categories.ini file. ***(See the configuration if your going to use this)***
-- `sm_start_menu 0` - Enable/Disable showing menu to players on round start.
-- `sm_hide_options 0` - hide menu options that people does not have permissions to use.
-- `sm_hide_teams 0` - hide opposit team's skins to be shown in user menu.
-- `sm_mapskins_enable 1` - let you choose whether you want map skins to be applied or not.
-- `sm_round_timeout 20.0` - restrict usage of `!pskin` after a time after round start. ***(Disable it by setting it to 0.0)***
-- `sm_ct_skin ""` - Add a default skin for CT.
-- `sm_t_skin ""` - Add a default skin for T.
-- `sm_ct_arm ""` - Add a default arm for CT.
-- `sm_t_arm ""` - Add a default arm for T.
+### ConVars
+- `sm_pskin_enable 1` - Enable/Disable command `!pskin` in chat; ***(Useful if you only want to use automatic admin skin set feature)***
+- `sm_cat_enable 0` - Enable/Disable categorie support via categories.ini file; ***(See the configuration if your going to use this)***
+- `sm_start_menu 0` - Enable/Disable showing menu to players on round start;
+- `sm_hide_options 0` - hide menu options that people does not have permissions to use;
+- `sm_hide_teams 0` - hide opposit team's skins to be shown in user menu;
+- `sm_mapskins_enable 1` - let you choose whether you want map skins to be applied or not;
+- `sm_round_timeout 20.0` - restrict usage of `!pskin` after a time after round start; ***(Disable it by setting it to 0.0)***
+- `sm_ct_skin ""` - Add a default skin for CT;
+- `sm_t_skin ""` - Add a default skin for T;
+- `sm_ct_arm ""` - Add a default arm for CT;
+- `sm_t_arm ""` - Add a default arm for T;
 
-## Commands
-- `sm_pskin` - Abre o menu de skins.
-- `sm_models` - Abre o menu de skins.
-- `sm_skins` - Abre o menu de skins.
+### Commands
+- `sm_pskin` - Abre o menu de skins;
+- `sm_models` - Abre o menu de skins;
+- `sm_skins` - Abre o menu de skins;
 
-## Configurations
 ### Configuring Database
 - In order to use the plugin's database, you must add an entry for plugin's database in `databases.cfg` like this:
 ```
@@ -42,7 +41,7 @@ You can hhave these features when using this plugin:
 }
 ```
 
-### Configuring `skins.ini`
+### Configuring `ps_skins.ini`
 - This file is use by menu that plugin will show to users when they type the chat trigger `"!skins"` and is also used by category file.
 ```
 "Skins"
@@ -60,10 +59,10 @@ You can hhave these features when using this plugin:
 } 
 ```
 
-### Configuring `admin_skins.ini`
+### Configuring `ps_adminskins.ini`
 - This file is used to setup an automated skin system to change user's skins.
 ```
-"Admin_Skins"
+"AdminSkins"
 {
     //It's a pre-defined config key that will be used for non-admin users.
     "def"
@@ -84,7 +83,7 @@ You can hhave these features when using this plugin:
 } 
 ```
 
-### Configuring `categories.ini`
+### Configuring `ps_categories.ini`
 - With this file you can setup categories and use them after turning on the related cvar.
 ```
 "Categories"
@@ -113,10 +112,10 @@ You can hhave these features when using this plugin:
 }  
 ```
 
-### Configuring Skin per Steam_ID
+### Configuring `ps_userskins.ini`
 - Uses SteamID_64 to setup skins for a particular Steam_ID.
 ```
-"userids"
+"UserIds"
 {
     "SteamId_64"
     {
@@ -134,10 +133,10 @@ You can hhave these features when using this plugin:
 }  
 ```
 
-### Configuring Skin per Map
+### Configuring `ps_mapskins.ini`
 - This will be used to setup per map skins. ***(Does not support prefix)***
 ```
-"mapskins"
+"MapSkins"
 {
 	"de_dust2"
     {

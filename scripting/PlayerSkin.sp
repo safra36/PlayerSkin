@@ -41,10 +41,8 @@ public Plugin myinfo =  {
 
 public void OnPluginStart() 
 {
-
 	HookEvent("player_spawn", PlayerSpawn, EventHookMode_Pre);
-	HookEvent("round_start", RoundStart, EventHookMode_Pre);
-	
+	HookEvent("round_start", RoundStart, EventHookMode_Pre);	
 	
 	RegConsoleCmd("sm_pskin", Command_PlayerSkin);
 	RegConsoleCmd("sm_models", Command_PlayerSkin);
@@ -57,10 +55,10 @@ public void OnPluginStart()
 	g_cHideTeams = CreateConVar("sm_hide_teams", "0", "Hide menu options for opposite team");
 	g_cMapSkins = CreateConVar("sm_mapskins_enable", "1", "Enable/Disable per map skin system");
 	g_cRoundStartTimeout = CreateConVar("sm_round_timeout", "0.0", "Set this to add a timeout for users to be able to use skins before that time.");
-	g_cCTDefaultSkin = CreateConVar("sm_ct_skin", "", "Set a default skin for ct incase you don't want to use admin_skins.ini");
-	g_cTDefualtSkin = CreateConVar("sm_t_skin", "", "Set a default skin for t incase you don't want to use admin_skins.ini");
-	g_cCTDefaultArms = CreateConVar("sm_ct_arm", "", "Set a default skin for ct incase you don't want to use admin_skins.ini");
-	g_cTDefualtArms = CreateConVar("sm_t_arm", "", "Set a default skin for t incase you don't want to use admin_skins.ini");
+	g_cCTDefaultSkin = CreateConVar("sm_ct_skin", "", "Set a default skin for ct incase you don't want to use ps_adminskins.ini");
+	g_cTDefualtSkin = CreateConVar("sm_t_skin", "", "Set a default skin for t incase you don't want to use ps_adminskins.ini");
+	g_cCTDefaultArms = CreateConVar("sm_ct_arm", "", "Set a default skin for ct incase you don't want to use ps_adminskins.ini");
+	g_cTDefualtArms = CreateConVar("sm_t_arm", "", "Set a default skin for t incase you don't want to use ps_adminskins.ini");
 	
 	//Delay loading database
 	
@@ -111,7 +109,7 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 			{
 				g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
 			}
-			PrintToChatAll(" \x10[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
+			PrintToChatAll(" \x02[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
 		}
 	}
 	else
@@ -123,7 +121,7 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 			{
 				g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
 			}
-			PrintToChatAll(" \x10[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
+			PrintToChatAll(" \x02[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
 		}
 	}
 	
@@ -132,7 +130,7 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 public Action Timer_HandleRoundTimeout(Handle timer)
 {
 	g_bIsSkinChangeAllowed = false;
-	PrintToChatAll(" \x10[PlayerSkin] \x01Skins are now disabled.");
+	PrintToChatAll(" \x02[PlayerSkin] \x01Skins are now disabled.");
 }
 
 public Action PlayerSpawn(Event event, const char[] name, bool dontBroadcast) 
@@ -173,32 +171,32 @@ public Action PlayerSpawn(Event event, const char[] name, bool dontBroadcast)
 	{
 		if(ApplyMapSkins(client))
 		{
-			PrintToChat(client, " \x10[PlayerSkin] \x01%T", "ApplyMapSkins", client);
+			PrintToChat(client, " \x02[PlayerSkin] \x04%T", "ApplyMapSkins", client);
 		}
 		else if(SetAdminSkins(client))
 		{
-			PrintToChat(client, " \x10[PlayerSkin] \x01%T", "ApplyDefSkins", client);
+			PrintToChat(client, " \x02[PlayerSkin] \x04%T", "ApplyDefSkins", client);
 		}
 		else if(SetConVarSkins(client))
 		{
-			PrintToChat(client, " \x10[PlayerSkin] \x01%T", "ApplyDefSkins", client);
+			PrintToChat(client, " \x02[PlayerSkin] \x04%T", "ApplyDefSkins", client);
 		}
 		else
 		{
-			PrintToChat(client, " \x10[PlayerSkin] \x01%T", "NoSkinHasBeenSet", client);
+			PrintToChat(client, " \x02[PlayerSkin] \x04%T", "NoSkinHasBeenSet", client);
 		}
 	}
 	else if(SetAdminSkins(client))
 	{
-		PrintToChat(client, " \x10[PlayerSkin] \x01%T", "ApplyConVarSkins", client);
+		PrintToChat(client, " \x02[PlayerSkin] \x04%T", "ApplyConVarSkins", client);
 	}
 	else if(SetConVarSkins(client))
 	{
-		PrintToChat(client, " \x10[PlayerSkin] \x01%T", "ApplyConVarSkins", client);
+		PrintToChat(client, " \x02[PlayerSkin] \x04%T", "ApplyConVarSkins", client);
 	}
 	else
 	{
-		PrintToChat(client, " \x10[PlayerSkin] \x01%T", "NoSkinHasBeenSet", client);
+		PrintToChat(client, " \x02[PlayerSkin] \x04%T", "NoSkinHasBeenSet", client);
 	}
 	return;
 
@@ -299,7 +297,7 @@ stock bool SetAdminSkins(int client)
 	{
 		bool s_gSkinFound = false;
 		char SectionName[16];
-		Handle kv = CreateKeyValues("Admin_Skins");
+		Handle kv = CreateKeyValues("AdminSkins");
 		FileToKeyValues(kv, g_szFileAutoSkinPath);
 		KvGotoFirstSubKey(kv, true);
 		do
@@ -340,7 +338,7 @@ stock bool SetAdminSkins(int client)
 	}
 	else if(!IsUserAdmin(client))
 	{
-		Handle kv = CreateKeyValues("Admin_Skins");
+		Handle kv = CreateKeyValues("AdminSkins");
 		FileToKeyValues(kv, g_szFileAutoSkinPath);
 		if(KvJumpToKey(kv, "def", false))
 		{
@@ -389,14 +387,14 @@ public Action Command_PlayerSkin(int client, int args)
 		}
 		else
 		{
-			PrintToChat(client, " \x10[PlayerSkin] \x01%T", "ReachedLimit", client);
+			PrintToChat(client, " \x02[PlayerSkin] \x04%T", "ReachedLimit", client);
 			return Plugin_Handled;
 		}
 		
 	}
 	else
 	{
-		PrintToChat(client, " \x10[PlayerSkin] \x01%T", "CommandDisabled", client);
+		PrintToChat(client, " \x02[PlayerSkin] \x04%T", "CommandDisabled", client);
 		return Plugin_Continue;
 	}
 	return Plugin_Continue;
@@ -678,11 +676,11 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 				{
 					if(DeleteUserSkin(param1, GetClientTeam(param1)))
 					{
-						PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "SavedSkinsRemoved", param1);
+						PrintToChat(param1, " \x02[PlayerSkin] \x04%T", "SavedSkinsRemoved", param1);
 					}
 					else
 					{
-						PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "SavedSkinsRemoveFail", param1);
+						PrintToChat(param1, " \x02[PlayerSkin] \x04%T", "SavedSkinsRemoveFail", param1);
 					}
 					CloseHandle(kv);
 					CloseHandle(menu);
@@ -699,7 +697,7 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 					{
 						if(GetClientTeam(param1) != iTeamID) 
 						{
-							PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "WrongTeam", param1);
+							PrintToChat(param1, " \x02[PlayerSkin] \x04%T", "WrongTeam", param1);
 							return;
 						}
 						else
@@ -720,7 +718,7 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 								{
 									SetEntityModel(param1, SkinPath);
 									
-									PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "SelectedSkin", param1, SkinName);
+									PrintToChat(param1, " \x02[PlayerSkin] \x04%T", "SelectedSkin", param1, SkinName);
 									
 									if(!StrEqual(ArmPath, "", false))
 									{
@@ -743,7 +741,7 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 								}
 								else
 								{
-									PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "InvalidSkin", param1);
+									PrintToChat(param1, " \x02[PlayerSkin] \x04%T", "InvalidSkin", param1);
 								}
 							}
 							else if(!StrEqual(Flag, "", false))
@@ -756,7 +754,7 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 										PrecacheModel(SkinPath);
 									}
 									
-									PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "SelectedSkin", param1, SkinName);
+									PrintToChat(param1, " \x02[PlayerSkin] \x04%T", "SelectedSkin", param1, SkinName);
 									
 									if(!StrEqual(SkinPath, "", false))
 									{
@@ -785,7 +783,7 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 								}
 								else if(!CheckCommandAccess(param1, "command_PlayerVIP", UserFlag))
 								{
-									PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "NoPermissions", param1);
+									PrintToChat(param1, " \x02[PlayerSkin] \x04%T", "NoPermissions", param1);
 									return;
 								}
 							}
@@ -811,7 +809,7 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 							{
 								SetEntityModel(param1, SkinPath);
 								
-								PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "SelectedSkin", param1, SkinName);
+								PrintToChat(param1, " \x02[PlayerSkin] \x04%T", "SelectedSkin", param1, SkinName);
 								
 								if(!StrEqual(ArmPath, "", false))
 								{
@@ -865,7 +863,7 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 							}
 							else
 							{
-								PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "InvalidSkin", param1);
+								PrintToChat(param1, " \x02[PlayerSkin] \x04%T", "InvalidSkin", param1);
 							}
 						}
 						else if(!StrEqual(Flag, "", false))
@@ -878,7 +876,7 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 									PrecacheModel(SkinPath);
 								}
 								
-								PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "SelectedSkin", param1, SkinName);
+								PrintToChat(param1, " \x02[PlayerSkin] \x04%T", "SelectedSkin", param1, SkinName);
 								
 								if(!StrEqual(SkinPath, "", false))
 								{
@@ -936,7 +934,7 @@ public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 							}
 							else if(!CheckCommandAccess(param1, "command_PlayerVIP", UserFlag))
 							{
-								PrintToChat(param1, " \x10[PlayerSkin] \x01%T", "NoPermissions", param1);
+								PrintToChat(param1, " \x02[PlayerSkin] \x04%T", "NoPermissions", param1);
 								return;
 							}
 						}
@@ -1075,7 +1073,7 @@ stock bool ApplyUserSkin(int client)
 {
 	char SteamAuth[32];
 	GetClientAuthId(client, AuthId_SteamID64, SteamAuth, sizeof(SteamAuth));
-	Handle kv = CreateKeyValues("userids");
+	Handle kv = CreateKeyValues("UserIds");
 	FileToKeyValues(kv, g_szFileUserSkinPath);
 	if(KvJumpToKey(kv, SteamAuth, false))
 	{
@@ -1143,7 +1141,7 @@ stock void PrecacheAllModels()
 	PrecacheModel(defArms[1]);
 
 	Handle kv = CreateKeyValues("Skins");
-	Handle kt = CreateKeyValues("Admin_Skins");
+	Handle kt = CreateKeyValues("AdminSkins");
 	FileToKeyValues(kv, g_szFileSkinPath);
 	FileToKeyValues(kt, g_szFileAutoSkinPath);
 	KvGotoFirstSubKey(kv, false);
@@ -1208,7 +1206,7 @@ stock bool ApplyMapSkins(int client)
 	// PrintToServer("I got called!");
 	char TeamCTSkin[128], TeamTSkin[128], TeamCTArms[128], TeamTArms[128], CurrentMapName[32];
 	GetCurrentMap(CurrentMapName, sizeof(CurrentMapName));	
-	Handle kv = CreateKeyValues("mapskins");
+	Handle kv = CreateKeyValues("MapSkins");
 	FileToKeyValues(kv, g_szFileMapSkins);
 	if(KvJumpToKey(kv, CurrentMapName, false))
 	{
