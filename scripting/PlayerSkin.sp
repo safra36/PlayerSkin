@@ -3,7 +3,7 @@
 #include <sourcemod>
 #include <sdktools>
 
-#define PLUGIN_VERSION "5.1.0 (Build 22)"
+#define PLUGIN_VERSION "5.1.0 (Build XX)"
 #define PLUGIN_AUTHOR "noBrain"
 #define MAX_SKIN_PATH 256
 
@@ -25,10 +25,8 @@ ConVar g_cTDefualtSkin = null;
 ConVar g_cCTDefaultArms = null;
 ConVar g_cTDefualtArms = null;
 
-
 char defArms[][] = { "models/weapons/ct_arms.mdl", "models/weapons/t_arms.mdl" };
 char g_szFileSkinPath[PLATFORM_MAX_PATH], g_szFileAutoSkinPath[PLATFORM_MAX_PATH], g_szFileCategoryPath[PLATFORM_MAX_PATH], g_szFileUserSkinPath[PLATFORM_MAX_PATH], g_szFileMapSkins[PLATFORM_MAX_PATH];
-
 
 public Plugin myinfo =  {
 
@@ -123,8 +121,7 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 			}
 			PrintToChatAll(" \x02[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
 		}
-	}
-	
+	}	
 }
 
 public Action Timer_HandleRoundTimeout(Handle timer)
@@ -199,7 +196,6 @@ public Action PlayerSpawn(Event event, const char[] name, bool dontBroadcast)
 		PrintToChat(client, " \x02[PlayerSkin] \x04%T", "NoSkinHasBeenSet", client);
 	}
 	return;
-
 }
 
 stock bool SetModels(int client, char[] model, char[] arms)
@@ -398,7 +394,6 @@ public Action Command_PlayerSkin(int client, int args)
 		return Plugin_Continue;
 	}
 	return Plugin_Continue;
-
 }
 
 stock void DisplaySkinMenu(int client, bool HaveCategories) {
@@ -409,7 +404,7 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 		{
 			char SkinName[32], UniqueId[32];
 			Handle menu = CreateMenu(SkinMenuHandle);
-			SetMenuTitle(menu, "Select a Category :");
+			SetMenuTitle(menu, "Select a Category:");
 			Handle kt = CreateKeyValues("Categories");
 			FileToKeyValues(kt, g_szFileCategoryPath);
 			KvGotoFirstSubKey(kt, false);
@@ -428,14 +423,13 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 			while(KvGotoNextKey(kt, false));
 			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			SetMenuExitButton(menu, true);
-			SetMenuExitBackButton(menu, true);
 			CloseHandle(kt);
 		}
 		else if(!GetConVarBool(g_cHideMenu))
 		{
 			char SkinName[32], UniqueId[32];
 			Handle menu = CreateMenu(SkinMenuHandle);
-			SetMenuTitle(menu, "Select a Category :");
+			SetMenuTitle(menu, "Select a Category:");
 			Handle kt = CreateKeyValues("Categories");
 			FileToKeyValues(kt, g_szFileCategoryPath);
 			KvGotoFirstSubKey(kt, false);
@@ -448,7 +442,6 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 			while(KvGotoNextKey(kt, false));
 			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			SetMenuExitButton(menu, true);
-			SetMenuExitBackButton(menu, true);
 			CloseHandle(kt);
 		}
 	}
@@ -488,7 +481,6 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 			}
 			while(KvGotoNextKey(kv, false));
 			SetMenuExitButton(menu, true);
-			SetMenuExitBackButton(menu, true);
 			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			CloseHandle(kv);
 		}
@@ -515,7 +507,6 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 			}
 			while(KvGotoNextKey(kv, false));
 			SetMenuExitButton(menu, true);
-			SetMenuExitBackButton(menu, true);
 			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			CloseHandle(kv);
 		}
@@ -547,7 +538,6 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 			}
 			while(KvGotoNextKey(kv, false));
 			SetMenuExitButton(menu, true);
-			SetMenuExitBackButton(menu, true);
 			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			CloseHandle(kv);
 		}
@@ -568,7 +558,6 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 			}
 			while(KvGotoNextKey(kv, false));
 			SetMenuExitButton(menu, true);
-			SetMenuExitBackButton(menu, true);
 			DisplayMenu(menu, client, MENU_TIME_FOREVER);
 			CloseHandle(kv);
 		}
@@ -577,7 +566,6 @@ stock void DisplaySkinMenu(int client, bool HaveCategories) {
 
 public int SkinMenuHandle(Handle menu, MenuAction action, int param1, int param2)
 {
-
 	char SkinName[32], UniqueId[32], Flag[64], ADMFlag[64];
 
 	switch (action) 
@@ -631,7 +619,7 @@ public int SkinMenuHandle(Handle menu, MenuAction action, int param1, int param2
 					while(KvGotoNextKey(kt, false));
 					DisplayMenu(smenu, param1, MENU_TIME_FOREVER);
 					SetMenuExitButton(smenu, true);
-					SetMenuExitBackButton(menu, true);
+					//SetMenuExitBackButton(smenu, true);
 					CloseHandle(kt);
 					CloseHandle(kv);
 				}
@@ -651,8 +639,6 @@ public int SkinMenuHandle(Handle menu, MenuAction action, int param1, int param2
 		}
 	}
 }
-
-
 
 public int SkinMenu(Handle menu, MenuAction action, int param1, int param2) {
 
@@ -1253,7 +1239,7 @@ stock bool ApplyMapSkins(int client)
 	}
 	else
 	{
-		//PrintToServer("No MAP");
+		//PrintToServer("NO MAP");
 		CloseHandle(kv);
 		return false;
 	}
@@ -1281,8 +1267,6 @@ stock bool IsClientWithArms(int client)
 	}
 }
 
-
-
 ///////////////////////////////
 //			Database
 ///////////////////////////////
@@ -1308,7 +1292,6 @@ stock void CreateDatabase()
 		}
 	}
 }
-
 
 stock bool AddUserSkin(int client, char[] skin, char[] arms, int team)
 {
@@ -1565,7 +1548,6 @@ stock void GetUserSkins(int client, char[] skin, int maxskinlen, char[] arms, in
 	}
 }
 
-
 stock bool IsUserWithSkins(int client)
 {
 	DBResultSet hQuery = null;
@@ -1645,8 +1627,6 @@ stock bool IsUserWithSkins(int client)
 		return false;
 	}
 }
-
-
 
 stock bool IsUserWithSkinsOnTeam(int client, int team)
 {

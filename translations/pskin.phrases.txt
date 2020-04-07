@@ -1,9 +1,3 @@
-/*
-===== COLORS CSGO =====
-\x01 = White | \x02 = Dark Red | \x03 = White | \x04 = Dark Green 
-\x05 = Moss Green | \x06 = Lime Green | \x07 = Light Red
-*/
-
 "Phrases"
 {
 	"SkinWait"
@@ -29,7 +23,7 @@
 	"SelectedSkin"
 	{
 		"#format"	"{1:s}"
-		"en"		"You are now \x02{1}"
+		"en"		"You are now {1}"
 	}
 	"NoPermissions"
 	{
