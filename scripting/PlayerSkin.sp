@@ -3,7 +3,7 @@
 #include <sourcemod>
 #include <sdktools>
 
-#define PLUGIN_VERSION "5.1.0 (Build XX)"
+#define PLUGIN_VERSION "5.0.2 (Build 22)"
 #define PLUGIN_AUTHOR "noBrain"
 #define MAX_SKIN_PATH 256
 
@@ -53,19 +53,19 @@ public void OnPluginStart()
 	g_cHideTeams = CreateConVar("sm_hide_teams", "0", "Hide menu options for opposite team");
 	g_cMapSkins = CreateConVar("sm_mapskins_enable", "1", "Enable/Disable per map skin system");
 	g_cRoundStartTimeout = CreateConVar("sm_round_timeout", "0.0", "Set this to add a timeout for users to be able to use skins before that time.");
-	g_cCTDefaultSkin = CreateConVar("sm_ct_skin", "", "Set a default skin for ct incase you don't want to use ps_adminskins.ini");
-	g_cTDefualtSkin = CreateConVar("sm_t_skin", "", "Set a default skin for t incase you don't want to use ps_adminskins.ini");
-	g_cCTDefaultArms = CreateConVar("sm_ct_arm", "", "Set a default skin for ct incase you don't want to use ps_adminskins.ini");
-	g_cTDefualtArms = CreateConVar("sm_t_arm", "", "Set a default skin for t incase you don't want to use ps_adminskins.ini");
+	g_cCTDefaultSkin = CreateConVar("sm_ct_skin", "", "Set a default skin for ct incase you don't want to use pskin_adminskins.ini");
+	g_cTDefualtSkin = CreateConVar("sm_t_skin", "", "Set a default skin for t incase you don't want to use pskin_adminskins.ini");
+	g_cCTDefaultArms = CreateConVar("sm_ct_arm", "", "Set a default skin for ct incase you don't want to use pskin_adminskins.ini");
+	g_cTDefualtArms = CreateConVar("sm_t_arm", "", "Set a default skin for t incase you don't want to use pskin_adminskins.ini");
 	
-	//Delay loading database
+	//Delay Loading Database
 	
 	//Define Created Paths
-	BuildPath(Path_SM, g_szFileSkinPath, 		sizeof(g_szFileSkinPath), 		"configs/playerskin/ps_skins.ini");
-	BuildPath(Path_SM, g_szFileAutoSkinPath, 	sizeof(g_szFileAutoSkinPath), 	"configs/playerskin/ps_adminskins.ini");
-	BuildPath(Path_SM, g_szFileCategoryPath, 	sizeof(g_szFileCategoryPath), 	"configs/playerskin/ps_categories.ini");
-	BuildPath(Path_SM, g_szFileUserSkinPath, 	sizeof(g_szFileUserSkinPath), 	"configs/playerskin/ps_userskins.ini");
-	BuildPath(Path_SM, g_szFileMapSkins, 		sizeof(g_szFileMapSkins), 		"configs/playerskin/ps_mapskins.ini");
+	BuildPath(Path_SM, g_szFileSkinPath, 		sizeof(g_szFileSkinPath), 		"configs/playerskin/pskin_skins.ini");
+	BuildPath(Path_SM, g_szFileAutoSkinPath, 	sizeof(g_szFileAutoSkinPath), 	"configs/playerskin/pskin_adminskins.ini");
+	BuildPath(Path_SM, g_szFileCategoryPath, 	sizeof(g_szFileCategoryPath), 	"configs/playerskin/pskin_categories.ini");
+	BuildPath(Path_SM, g_szFileUserSkinPath, 	sizeof(g_szFileUserSkinPath), 	"configs/playerskin/pskin_userskins.ini");
+	BuildPath(Path_SM, g_szFileMapSkins, 		sizeof(g_szFileMapSkins), 		"configs/playerskin/pskin_mapskins.ini");
 	
 	//Auto-Create Configurations
 	AutoExecConfig(true, "configs.playerskin");
@@ -78,6 +78,7 @@ public void OnConfigsExecuted()
 {
 	PrintToServer("[PlayerSkin] Configs has executed.");
 }
+
 public void OnMapStart() 
 {
 	CreateDatabase();
