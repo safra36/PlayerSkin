@@ -41,7 +41,7 @@ You can hhave these features when using this plugin:
 }
 ```
 
-### Configuring `ps_skins.ini`
+### Configuring `skins.ini`
 - This file is use by menu that plugin will show to users when they type the chat trigger `"!skins"` and is also used by category file.
 ```
 "Skins"
@@ -59,7 +59,7 @@ You can hhave these features when using this plugin:
 } 
 ```
 
-### Configuring `ps_adminskins.ini`
+### Configuring `adminskins.ini`
 - This file is used to setup an automated skin system to change user's skins.
 ```
 "AdminSkins"
@@ -83,7 +83,7 @@ You can hhave these features when using this plugin:
 } 
 ```
 
-### Configuring `ps_categories.ini`
+### Configuring `categories.ini`
 - With this file you can setup categories and use them after turning on the related cvar.
 ```
 "Categories"
@@ -112,7 +112,7 @@ You can hhave these features when using this plugin:
 }  
 ```
 
-### Configuring `ps_userskins.ini`
+### Configuring `userskins.ini`
 - Uses SteamID_64 to setup skins for a particular Steam_ID.
 ```
 "UserIds"
@@ -133,7 +133,7 @@ You can hhave these features when using this plugin:
 }  
 ```
 
-### Configuring `ps_mapskins.ini`
+### Configuring `mapskins.ini`
 - This will be used to setup per map skins. ***(Does not support prefix)***
 ```
 "MapSkins"
