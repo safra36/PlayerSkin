@@ -108,7 +108,7 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 			{
 				g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
 			}
-			PrintToChatAll(" \x02[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
+			PrintToChatAll(" \x02[PlayerSkin] \x04You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
 		}
 	}
 	else
@@ -120,7 +120,7 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 			{
 				g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
 			}
-			PrintToChatAll(" \x02[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
+			PrintToChatAll(" \x02[PlayerSkin] \x04You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
 		}
 	}	
 }
@@ -128,7 +128,7 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 public Action Timer_HandleRoundTimeout(Handle timer)
 {
 	g_bIsSkinChangeAllowed = false;
-	PrintToChatAll(" \x02[PlayerSkin] \x01Skins are now disabled.");
+	PrintToChatAll(" \x02[PlayerSkin] \x04Skins are now disabled.");
 }
 
 public Action PlayerSpawn(Event event, const char[] name, bool dontBroadcast) 

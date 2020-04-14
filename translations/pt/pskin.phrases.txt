@@ -1,5 +1,5 @@
 "Phrases"
-{
+{	
 	"SkinWait"
 	{
 		"pt"		"Você está esperando para ter suas skins na próxima rodada!"
