@@ -1,0 +1,88 @@
+"Phrases"
+{
+	"SkinWait"
+	{
+		"chi"		"您的皮肤将在下一局生效！"
+	}
+	"CommandDisabled"
+	{
+		"chi"		"皮肤命令已被服务器管理禁用！"
+	}
+	"SavedSkinsRemoved"
+	{
+		"chi"		"您保存的皮肤已经被移除！"
+	}
+	"SavedSkinsRemoveFail"
+	{
+		"chi"		"您已保存的皮肤不能被移除！"
+	}
+	"WrongTeam"
+	{
+		"chi"		"该皮肤不适用于您的队伍！"
+	}
+	"SelectedSkin"
+	{
+		"#format"	"{1:s}"
+		"chi"		"当前皮肤{1}"
+	}
+	"NoPermissions"
+	{
+		"chi"		"您没有使用此皮肤的权限！"
+	}
+	"ModelRefresh"
+	{
+		"chi"		"您的皮肤已经刷新。"
+	}
+	"HoldingBomb"
+	{
+		"chi"		"您现在正持有炸弹。"
+	}
+	"MSG_ASK"
+	{
+		"chi"		"您需要启用皮肤手臂吗？"
+	}
+	"MSG_YES"
+	{
+		"chi"		"是的"
+	}
+	"MSG_NO"
+	{
+		"chi"		"不需要"
+	}
+	"SavedSkinTeam2"
+	{
+		"chi"		"反恐精英(CT)队皮肤已保存。"
+	}
+	"SavedSkinTeam3"
+	{
+		"chi"		"恐怖分子(T)队皮肤已保存。"
+	}
+	"ReachedLimit"
+	{
+		"chi"		"你不能再换皮肤了！"
+	}
+	"InvalidPathSkin"
+	{
+		"chi"		"服务器皮肤路径错误！请联系服务器管理员！"
+	}
+	"HasChoosed"
+	{
+		"chi"		"您所选的皮肤手臂已经应用。"
+	}
+	"ApplyMapSkins"
+	{
+		"chi"		"地图特定皮肤已经应用。"
+	}
+	"InvalidSkin"
+	{
+		"chi"		"检测到无效皮肤，无法设置。"
+	}
+	"ApplyDefSkins"
+	{
+		"chi"		"您已恢复默认皮肤。"
+	}
+	"NoSkinHasBeenSet"
+	{
+		"chi"		"您没有使用任何皮肤。"
+	}
+}
