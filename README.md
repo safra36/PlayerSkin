@@ -17,7 +17,7 @@ You can hhave these features when using this plugin:
 - `sm_cat_enable 0` - Enable/Disable categorie support via categories.ini file. ***(See the configuration if your going to use this)***
 - `sm_start_menu 0` - Enable/Disable showing menu to players on round start.
 - `sm_hide_options 0` - hide menu options that people does not have permissions to use.
-- `sm_hide_teams 0` - hide opposit team's skins to be shown in user menu.
+- `sm_hide_teams 0` - hide opposit team's skins to be shown in user menu
 - `sm_mapskins_enable 1` - let you choose whether you want map skins to be applied or not.
 - `sm_round_timeout 20.0` - restrict usage of `!pskin` after a time after round start. ***(Disable it by setting it to 0.0)***
 - `sm_ct_skin ""` - Add a default skin for CT.
@@ -187,4 +187,103 @@ You can hhave these features when using this plugin:
         }
     }
  } 
+```
+
+
+## Adding Glove Plugin Support
+since i didn't want the plugin to have seperated versions i just made this version edit-ready which means i just commented everything you be needing to make the plugin compatible with that plugin, in-order to achive that, put these lines of code instead of line starting at 211 to 302
+
+```
+stock bool SetModels(int client, char[] model, char[] arms)
+{
+	if(!IsModelPrecached(model))
+	{
+		PrecacheModel(model)
+	}
+	
+	if(!IsModelPrecached(arms))
+	{
+		PrecacheModel(arms)
+	}
+	
+	if(!StrEqual(model, "", false))
+	{
+		SetEntityModel(client, model);
+
+		if(GetConVarFloat(g_cDelayArmSet) == 0.0)
+		{
+			if(!IsClientWithArms(client))
+			{
+				if(!StrEqual(arms, "", false))
+				{
+					// SetEntPropString(client, Prop_Send, "m_szArmsModel", arms);
+					Gloves_SetArmsModel(client, arms);
+				}
+				else
+				{
+					int g_iTeam = GetClientTeam(client);
+					if(g_iTeam == 2)
+					{
+						// SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[1]);
+						Gloves_SetArmsModel(client, defArms[1]);
+					}
+					else if(g_iTeam == 3)
+					{
+						// SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[0]);
+						Gloves_SetArmsModel(client, defArms[0]);
+					}
+				}
+			}
+			else
+			{
+				PrintToServer("[PlayerSkin] Gloves detected, skipping setting arms ...");
+			}
+			
+			return true;
+		}
+		else
+		{
+			Format(g_szClientPendingArms[client], sizeof(g_szClientPendingArms[]), arms)
+			CreateTimer(GetConVarFloat(g_cDelayArmSet), Timer_HandleArmsSet, client);
+			return true;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+public Action Timer_HandleArmsSet(Handle timer, any client)
+{
+	if(!IsClientWithArms(client))
+	{
+		if(!StrEqual(g_szClientPendingArms[client], "", false))
+		{
+			// SetEntPropString(client, Prop_Send, "m_szArmsModel", g_szClientPendingArms[client]);
+			Gloves_SetArmsModel(client, g_szClientPendingArms[client]);
+			Format(g_szClientPendingArms[client], sizeof(g_szClientPendingArms[]), "")
+		}
+		else
+		{
+			int g_iTeam = GetClientTeam(client);
+			if(g_iTeam == 2)
+			{
+				// SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[1]);
+				Gloves_SetArmsModel(client, defArms[1]);
+			}
+			else if(g_iTeam == 3)
+			{
+				// SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[0]);
+				Gloves_SetArmsModel(client, defArms[0]);
+			}
+
+			Format(g_szClientPendingArms[client], sizeof(g_szClientPendingArms[]), "")
+		}
+	}
+	else
+	{
+		PrintToServer("[PlayerSkin] Gloves detected, skipping setting arms ...");
+	}
+}
 ```
