@@ -191,7 +191,8 @@ You can hhave these features when using this plugin:
 
 
 ## Adding Glove Plugin Support
-since i didn't want the plugin to have seperated versions i just made this version edit-ready which means i just commented everything you be needing to make the plugin compatible with that plugin, in-order to achive that, put these lines of code instead of line starting at 211 to 302
+since i didn't want the plugin to have seperated versions i just made this version edit-ready which means i just commented everything you be needing to make the plugin compatible with that plugin, in-order to achive that, put these lines of code instead of line starting at `211 to 302`
+also don't forget to uncomment the `#include` at the top of the file
 
 ```
 stock bool SetModels(int client, char[] model, char[] arms)
