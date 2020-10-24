@@ -2,8 +2,9 @@
 
 #include <sourcemod>
 #include <sdktools>
+// #include <gloves>
 
-#define PLUGIN_VERSION "5.0.2 (Build 22)"
+#define PLUGIN_VERSION "5.0.3 (Build 4)"
 #define PLUGIN_AUTHOR "noBrain"
 #define MAX_SKIN_PATH 256
 
@@ -24,12 +25,13 @@ ConVar g_cCTDefaultSkin = null;
 ConVar g_cTDefualtSkin = null;
 ConVar g_cCTDefaultArms = null;
 ConVar g_cTDefualtArms = null;
+ConVar g_cDelayArmSet = null;
 
 
 char defArms[][] = { "models/weapons/ct_arms.mdl", "models/weapons/t_arms.mdl" };
 char g_szFileSkinPath[PLATFORM_MAX_PATH], g_szFileAutoSkinPath[PLATFORM_MAX_PATH], g_szFileCategoryPath[PLATFORM_MAX_PATH], g_szFileUserSkinPath[PLATFORM_MAX_PATH], g_szFileMapSkins[PLATFORM_MAX_PATH];
 
-
+char g_szClientPendingArms[MAXPLAYERS+1];
 
 public Plugin myinfo =  {
 
@@ -62,6 +64,7 @@ public void OnPluginStart()
 	g_cTDefualtSkin = CreateConVar("sm_t_skin", "", "Set a default skin for t incase you don't want to use admin_skins.ini");
 	g_cCTDefaultArms = CreateConVar("sm_ct_arm", "", "Set a default skin for ct incase you don't want to use admin_skins.ini");
 	g_cTDefualtArms = CreateConVar("sm_t_arm", "", "Set a default skin for t incase you don't want to use admin_skins.ini");
+	g_cDelayArmSet = CreateConVar("sm_arms_delay", "0.0", "Put a delay to set skins's arms after skins are set ( set 0.0 to disable the delay )");
 	
 	//Delay loading database.
 	
@@ -220,36 +223,81 @@ stock bool SetModels(int client, char[] model, char[] arms)
 	if(!StrEqual(model, "", false))
 	{
 		SetEntityModel(client, model);
-		
-		if(!IsClientWithArms(client))
+
+		if(GetConVarFloat(g_cDelayArmSet) == 0.0)
 		{
-			if(!StrEqual(arms, "", false))
+			if(!IsClientWithArms(client))
 			{
-				SetEntPropString(client, Prop_Send, "m_szArmsModel", arms);
+				if(!StrEqual(arms, "", false))
+				{
+					SetEntPropString(client, Prop_Send, "m_szArmsModel", arms);
+					// Gloves_SetArmsModel(client, arms);
+				}
+				else
+				{
+					int g_iTeam = GetClientTeam(client);
+					if(g_iTeam == 2)
+					{
+						SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[1]);
+						// Gloves_SetArmsModel(client, defArms[1]);
+					}
+					else if(g_iTeam == 3)
+					{
+						SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[0]);
+						// Gloves_SetArmsModel(client, defArms[0]);
+					}
+				}
 			}
 			else
 			{
-				int g_iTeam = GetClientTeam(client);
-				if(g_iTeam == 2)
-				{
-					SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[1]);
-				}
-				else if(g_iTeam == 3)
-				{
-					SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[0]);
-				}
+				PrintToServer("[PlayerSkin] Gloves detected, skipping setting arms ...");
 			}
+			
+			return true;
 		}
 		else
 		{
-			PrintToServer("[PlayerSkin] Gloves detected, skipping setting arms ...");
+			Format(g_szClientPendingArms[client], sizeof(g_szClientPendingArms[]), arms)
+			CreateTimer(GetConVarFloat(g_cDelayArmSet), Timer_HandleArmsSet, client);
+			return true;
 		}
-		
-		return true;
 	}
 	else
 	{
 		return false;
+	}
+}
+
+public Action Timer_HandleArmsSet(Handle timer, any client)
+{
+	if(!IsClientWithArms(client))
+	{
+		if(!StrEqual(g_szClientPendingArms[client], "", false))
+		{
+			SetEntPropString(client, Prop_Send, "m_szArmsModel", g_szClientPendingArms[client]);
+			// Gloves_SetArmsModel(client, g_szClientPendingArms[client]);
+			Format(g_szClientPendingArms[client], sizeof(g_szClientPendingArms[]), "")
+		}
+		else
+		{
+			int g_iTeam = GetClientTeam(client);
+			if(g_iTeam == 2)
+			{
+				SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[1]);
+				// Gloves_SetArmsModel(client, defArms[1]);
+			}
+			else if(g_iTeam == 3)
+			{
+				SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[0]);
+				// Gloves_SetArmsModel(client, defArms[0]);
+			}
+
+			Format(g_szClientPendingArms[client], sizeof(g_szClientPendingArms[]), "")
+		}
+	}
+	else
+	{
+		PrintToServer("[PlayerSkin] Gloves detected, skipping setting arms ...");
 	}
 }
 
