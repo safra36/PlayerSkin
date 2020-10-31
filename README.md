@@ -34,7 +34,6 @@ You can hhave these features when using this plugin:
 - `sm_t_skin ""` -  Add a default skin for T.
 - `sm_ct_arm ""` - Add a default arm for CT.
 - `sm_t_arm ""` - Add a default arm for T.
-- `sm_arms_delay` - Set a delay before the arms being set ***(must be float, 0.0 means disabled)***
 
 ## Configurations
 
