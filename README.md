@@ -10,6 +10,16 @@ You can hhave these features when using this plugin:
 - SQLite + MySQL db skin storing;
 - etc;
 
+## Requirements
+- Latest Metamod dev build
+- Latest Sourcemod (1.10 atm)
+- Arms fix is required which is included in the plugin by default, for more info check out [Adding Arms Capability](https://github.com/safra36/PlayerSkin/wiki/Adding-Arms-Capability)
+
+
+## Important Changes of the last version
+- File paths and names are changed so make sure not to miss it (moved to a seperated folder rather than just configs)
+
+
 **Link on AlliedModders:** https://forums.alliedmods.net/showthread.php?t=293846
 
 ## ConVars
@@ -191,7 +201,7 @@ You can hhave these features when using this plugin:
 
 
 ## Adding Glove Plugin Support
-since i didn't want the plugin to have seperated versions i just made this version edit-ready which means i just commented everything you be needing to make the plugin compatible with that plugin, in-order to achive that, put these lines of code instead of line starting at `211 to 302`
+since i didn't want the plugin to have seperated versions i just made this version edit-ready which means i just commented everything you be needing to make the plugin compatible with that plugin, in-order to achive that, put these lines of code instead of line starting at `202 to 217`
 also don't forget to uncomment the `#include` at the top of the file
 
 ```
@@ -211,80 +221,38 @@ stock bool SetModels(int client, char[] model, char[] arms)
 	{
 		SetEntityModel(client, model);
 
-		if(GetConVarFloat(g_cDelayArmSet) == 0.0)
+		if(!IsClientWithArms(client))
 		{
-			if(!IsClientWithArms(client))
+			if(!StrEqual(arms, "", false))
 			{
-				if(!StrEqual(arms, "", false))
-				{
-					// SetEntPropString(client, Prop_Send, "m_szArmsModel", arms);
-					Gloves_SetArmsModel(client, arms);
-				}
-				else
-				{
-					int g_iTeam = GetClientTeam(client);
-					if(g_iTeam == 2)
-					{
-						// SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[1]);
-						Gloves_SetArmsModel(client, defArms[1]);
-					}
-					else if(g_iTeam == 3)
-					{
-						// SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[0]);
-						Gloves_SetArmsModel(client, defArms[0]);
-					}
-				}
+				SetEntPropString(client, Prop_Send, "m_szArmsModel", arms);
+				// Gloves_SetArmsModel(client, arms);
 			}
 			else
 			{
-				PrintToServer("[PlayerSkin] Gloves detected, skipping setting arms ...");
+				int g_iTeam = GetClientTeam(client);
+				if(g_iTeam == 2)
+				{
+					SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[1]);
+					// Gloves_SetArmsModel(client, defArms[1]);
+				}
+				else if(g_iTeam == 3)
+				{
+					SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[0]);
+					// Gloves_SetArmsModel(client, defArms[0]);
+				}
 			}
-			
-			return true;
 		}
 		else
 		{
-			Format(g_szClientPendingArms[client], sizeof(g_szClientPendingArms[]), arms)
-			CreateTimer(GetConVarFloat(g_cDelayArmSet), Timer_HandleArmsSet, client);
-			return true;
+			PrintToServer("[PlayerSkin] Gloves detected, skipping setting arms ...");
 		}
+		
+		return true;
 	}
 	else
 	{
 		return false;
-	}
-}
-
-public Action Timer_HandleArmsSet(Handle timer, any client)
-{
-	if(!IsClientWithArms(client))
-	{
-		if(!StrEqual(g_szClientPendingArms[client], "", false))
-		{
-			// SetEntPropString(client, Prop_Send, "m_szArmsModel", g_szClientPendingArms[client]);
-			Gloves_SetArmsModel(client, g_szClientPendingArms[client]);
-			Format(g_szClientPendingArms[client], sizeof(g_szClientPendingArms[]), "")
-		}
-		else
-		{
-			int g_iTeam = GetClientTeam(client);
-			if(g_iTeam == 2)
-			{
-				// SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[1]);
-				Gloves_SetArmsModel(client, defArms[1]);
-			}
-			else if(g_iTeam == 3)
-			{
-				// SetEntPropString(client, Prop_Send, "m_szArmsModel", defArms[0]);
-				Gloves_SetArmsModel(client, defArms[0]);
-			}
-
-			Format(g_szClientPendingArms[client], sizeof(g_szClientPendingArms[]), "")
-		}
-	}
-	else
-	{
-		PrintToServer("[PlayerSkin] Gloves detected, skipping setting arms ...");
 	}
 }
 ```
