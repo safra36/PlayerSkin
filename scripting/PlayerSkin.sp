@@ -4,7 +4,7 @@
 #include <sdktools>
 // #include <gloves>
 
-#define PLUGIN_VERSION "5.0.3 (Build 36)"
+#define PLUGIN_VERSION "5.0.3 (Build 37)"
 #define PLUGIN_AUTHOR "noBrain"
 #define MAX_SKIN_PATH 256
 
@@ -97,9 +97,12 @@ public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
 		delete g_hTimerRoundChecker;
 	}
 	
-	g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
-	PrintToChatAll(" \x10[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
-	
+
+	if(GetConVarFloat(g_cRoundStartTimeout) != 0.0)
+	{
+		g_hTimerRoundChecker = CreateTimer(GetConVarFloat(g_cRoundStartTimeout), Timer_HandleRoundTimeout);
+		PrintToChatAll(" \x10[PlayerSkin] \x01You can now use skins for %f seconds.", GetConVarFloat(g_cRoundStartTimeout));
+	}
 }
 
 public Action Timer_HandleRoundTimeout(Handle timer)
